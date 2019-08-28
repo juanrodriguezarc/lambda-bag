@@ -1,0 +1,25 @@
+{
+  "name": "lambda-bag",
+  "version": "0.0.1",
+  "description": "Functional utility toolbelt for vanillaJS",
+  "main": "lamba-bag.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanrodriguezarc/lamda-bag.git"
+  },
+  "keywords": [
+    "functional",
+    "javascript",
+    "toolbelt",
+    "utilities"
+  ],
+  "author": "Juan Rodriguez Arce",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juanrodriguezarc/lamda-bag/issues"
+  },
+  "homepage": "https://github.com/juanrodriguezarc/lamda-bag#readme"
+}
