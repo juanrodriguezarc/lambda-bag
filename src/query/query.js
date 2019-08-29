@@ -1,108 +1,71 @@
-/*
-  The purpose of this file is generate/introduce a toolbelt (Similar to loadash, Ramda, RxJS) 
-  following the DRY principle and functional programming practices
-*/
 
-// Composition functions
 
-/*
-  Pipe is a function to create composition of functions (using map, filter, sort, etc)
-  Usage example: https://www.freecodecamp.org/news/pipe-and-compose-in-javascript-5b04004ac937/
-  External resources: https://medium.com/javascript-scene/tagged/functional-programming
-*/
-export const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x)
-
-export const compose = (...fns) => (x) => fns.reduceRight((v, f) => f(v), x)
-
-export const map = (f) => (arr) => [...arr].reduce((acc, x) => [...acc, f(x)], [])
-
-export const filter = (f) => (arr) => [...arr].reduce((acc, x) => f(x) ? [...acc, x] : acc, [])
-
-export const pluck = (str) => (arr) => [...arr].reduce((acc, x) => [...acc, { [str] : x[str] }], [])
-
-export const sort = (fn) => (arr) => [...arr].reduce(insertSortedValue(fn),[])
-
-/*
-  General DOM functions
+/**  General DOM functions
   Use these functions to select, handle html elements (similar to jQuery)
 */
 
-/* 
+/**
  * Returns a static (not live) NodeList representing a list of the document's 
  * elements that match the specified group of selectors.
 */
 export const selectAll = (query) =>  (item = document) =>  [...item.querySelectorAll(query)]
 
-/*
+/**
  * Returns the first Element within the document that matches the specified selector, 
  * or group of selectors. If no matches are found, null is returned.
-*/
+ */
 export const select = (query) => (item = document) => item.querySelector(query)
 
-//TODO: Add documentation
-export const value =  (query) => (item = document) => item.querySelector(query).value
-
-//TODO: Add documentation
-export const dataset = (dataKey) => ({ dataset }) => dataset[dataKey]
-
-/*
+/** 
  * Returns a Boolean value indicating whether a class is a present of a specified node.
 */
 export const hasClass = (tag) => (item) => item.classList.contains(tag)
 
-/*
+/**
  * Returns a Boolean value indicating whether a node is a descendant of a specified node.
 */
 export const contains = (tag) => (item) => item.classList.contains(tag)
 
-/*
+/**
  * Returns the element immediately following the specified element, in the same tree level.
-*/
+ */
 export const nextSibling = (item) => item.nextElementSibling
 
-/*
- * Returns the previous element of the specified element, in the same tree level.
+/** * Returns the previous element of the specified element, in the same tree level.
 */
 export const prevSibling = (item) => item.previousElementSibling
 
-/*
- * Traverses parents (heading toward the document root) of the Element until
+/** * Traverses parents (heading toward the document root) of the Element until
  * it finds a node that matches the provided selectorString. Will return itself or the
  * matching ancestor. If no such element exists, it returns null.
 */
 export const closest = (item) => (query) => item.closest(query)
 
-/*
- * Returns the value of a specified attribute on the element 
+/** * Returns the value of a specified attribute on the element 
  */
 export const getAttr = (attr) => (item) => item.getAttribute(attr)
 
-/*
- * method submits the form 
+/** * method submits the form 
 */
 export const submit = (item) => item.submit(item)
 
 // ---  SETTERS --- // ---  SETTERS --- // ---  SETTERS --- // ---  SETTERS --- // ---  SETTERS --- // ---  SETTERS --- 
 
-/*
- * Removes the attribute from the element.
+/** * Removes the attribute from the element.
  */
 export const rmAttr = (attr) => (item) => item.removeAttribute(attr)
 
-/*
- * Removes the class with the from the element.
+/** * Removes the class with the from the element.
  */
 export const rmClass = (cls) => (item) => item.classList.remove(cls)
 
 export const addClass = (cls) => (item) => item.classList.add(cls)
 
-/*
- * Removes a child node from the DOM and returns the removed node.
+/** * Removes a child node from the DOM and returns the removed node.
 */
 export const rmChild = (item) => item.parentNode.removeChild(item)
 
-/*
- * Removes the object from the tree it belongs to.
+/** * Removes the object from the tree it belongs to.
 */
 export const remove = (item) => item.remove(item)
 
@@ -113,6 +76,13 @@ export const remove = (item) => item.remove(item)
 ///////---------
 ///////---------
 ///////---------
+
+//TODO: Add documentation
+export const value =  (query) => (item = document) => item.querySelector(query).value
+
+//TODO: Add documentation
+export const dataset = (dataKey) => ({ dataset }) => dataset[dataKey]
+
 
 export const toggleAttr = (item, attr) => item.toggleAttribute(attr)
 
@@ -166,10 +136,11 @@ export const replaceHtml = (str) => (item) => item.outerHTML = str
 
 export const siblings = (item) => [...item.parentNode.children].filter((child) => child !== item)
 
-/*
-  General purpose functions
+/**  General purpose functions
   Use these functions to apply certain operation in your context
 */
+export const type = Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+
 export const now = Date.now()
 
 export const removeListener = (handler, eventName) => (item) => item.removeEventListener(eventName, handler)
@@ -181,8 +152,6 @@ export const isDocReady = (fn) => (item = document) => item.readyState != 'loadi
 export const count = (str) => str.length
 
 export const goTo = (URL) => window.location.href = URL
-
-export const insertSortedValue = (fn) => (arr, value) => [...arr.filter(n => !fn(n, value)), value, ...arr.filter(n => fn(n,value))]
 
 export const serialize = (form) => Array.from( new FormData(form), e => e.map(encodeURIComponent).join('=')).join('&')
 
