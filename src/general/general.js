@@ -1,4 +1,3 @@
-
 /**
  * Returns the type of the given object
  */
@@ -7,7 +6,7 @@ export const type = (obj) => Object.prototype.toString.call(obj).replace(/^\[obj
 /**
  * Returns the current Date object 
  */
-export const now = Date.now()
+export const now = () => Date.now()
 
 /**
  *  Removes from the EventTarget an event listener previously 
@@ -54,7 +53,7 @@ export const isDevice = (deviceType) => window.innerWidth <= breakpoints[deviceT
 /**
  * Screen width and height  
  */
-export const screen = { width: window.innerWidth, height: window.innerHeight }
+export const screen = () => ({ width: window.innerWidth, height: window.innerHeight })
 
 /**
  * Screen breakpoints commonly used
@@ -84,3 +83,19 @@ export const getSize = (item) => ({
   width: parseFloat(getComputedStyle(item, null).width.replace("px", "")),
   height :parseFloat(getComputedStyle(item, null).height.replace("px", ""))
 })
+
+export const getQueryParams = (str = location.search) => decodeURIComponent(str).replace('?','').split('&').map(i => i.split('='))
+
+export const setQueryParam = (key,value) => {
+  const url = new URL(window.location.href);
+  url.searchParams.set(key,value);
+  window.history.replaceState('','', `${window.location.pathname}${url.search}`);
+}
+
+export const rmQueryParam = (key) => {
+  const url = new URL(window.location.href);
+  url.searchParams.delete(key);
+  window.history.replaceState('','', `${window.location.pathname}${url.search}`);
+}
+
+export const cleanQueryParams = () => window.history.replaceState('','', `${location.pathname}`)

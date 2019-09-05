@@ -28,12 +28,33 @@ export const filter = (f) => (arr) => [...arr].reduce((acc, x) => f(x) ? [...acc
 /**
  *  Select properties to emit
  */
-export const pluck = (str) => (arr) => [...arr].reduce((acc, x) => [...acc, { [str] : x[str] }], [])
+export const pluck = (str) => (arr) => [...arr].reduce((acc, x) => [...acc, x[str]], [])
 
 /**
  * Sort given values by a function
  */
 export const sort = (fn) => (arr) => [...arr].reduce(insertSortedValue(fn),[])
 
+/**
+ * Apply reduce operator to the current array
+ */
+export const reduce = (fn, acc =[]) => (arr) => [...arr].reduce(fn,acc)
 
-const insertSortedValue = (fn) => (arr, value) => [...arr.filter(n => !fn(n, value)), value, ...arr.filter(n => fn(n,value))]
+/**
+ * Toggle one element if match with the current items in the array
+ * If exists will be remove in the other case will be addded 
+ */
+export const toggle = (value) => (arr) => arr.includes(value) ? arr.filter(i => i != value) : [...arr, value]
+
+/**
+ * Convert the array into a set
+ */
+export const set = (arr) => new Set(arr)
+
+/**
+ * Convert the array into a set
+ */
+export const spread = (arr) => [...arr]
+
+
+const insertSortedValue = (fn) => (arr, value) => [...arr.filter(n => fn(n, value)), value, ...arr.filter(n => !fn(n,value))]
