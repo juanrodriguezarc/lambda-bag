@@ -179,7 +179,7 @@ export const empty = (item) => item.innerHTML = ''
 /**
  * Returns all elements that accomplish the given condition
  */
-export const docFilter = (fn) => (item = document) => selectAll(query)(item).filter(fn)
+export const docFilter = (fn) => (query) => (item = document) => selectAll(query)(item).filter(fn)
 
 /**
  * Returns the outerHTML of the given element
@@ -204,7 +204,7 @@ export const match = (other) => (item) => item === other
 /**
  * Inserts a node before the reference node as a child of a specified parent node
  */
-export const prepend = (parent) => (item) => item.insertBefore(el, parent.firstChild)
+export const prepend = (parent) => (item) => item.insertBefore(parent, parent.firstChild)
 
 /**
  * Returns the size of an element and its position relative to the viewport.

@@ -1,19 +1,20 @@
 /**
  * 
- * @param {object} obj 
- * 
  * Returns the type of the given object
+ * @param {object} obj 
+ * @returns {string} Type of the object
  */
-export const type = (obj) => Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+export const type = (obj ) => Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
 
 /**
- * Returns the current Date object 
+ * Method to get the current date
+ * @returns {number} the current Date object 
  */
-export const now = () => Date.now()
+export const now = () : number => Date.now()
 
 /**
  *  Removes from the EventTarget an event listener previously 
- *  registered with EventTarget.addEventListener()
+ *  registered with EventTarget.addEventListener() 
  */
 export const removeListener = (handler, eventName) => (item) => item.removeEventListener(eventName, handler)
 
