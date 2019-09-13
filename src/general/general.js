@@ -1,4 +1,7 @@
 /**
+ * 
+ * @param {object} obj 
+ * 
  * Returns the type of the given object
  */
 export const type = (obj) => Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
@@ -98,4 +101,15 @@ export const rmQueryParam = (key) => {
   window.history.replaceState('','', `${window.location.pathname}${url.search}`);
 }
 
+/**
+ * Removes all query string parameters
+ */
 export const cleanQueryParams = () => window.history.replaceState('','', `${location.pathname}`)
+
+/**
+ * 
+ * @param {Element} item 
+ * @param {object} options 
+ * Scrolls to a particular set of coordinates in the document.
+ */
+export const scrollToElem = (item, options = { behavior: 'smooth', block: 'center' }) => item.scrollIntoView(options)

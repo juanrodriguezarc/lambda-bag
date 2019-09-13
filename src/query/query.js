@@ -222,6 +222,8 @@ export const replaceHtml = (str) => (item) => item.outerHTML = str
  */
 export const siblings = (item) => [...item.parentNode.children].filter((child) => child !== item)
 
+export const scrollToElem = (item, options = { behavior: 'smooth', block: 'center' }) => item.scrollIntoView(options)
+
 /**
  * Dispatches an Event at the specified element, (synchronously) 
  * invoking the affected event name in the appropriate order.

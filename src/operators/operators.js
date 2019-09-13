@@ -56,5 +56,11 @@ export const set = (arr) => new Set(arr)
  */
 export const spread = (arr) => [...arr]
 
+/**
+ * Negate an a function result
+ */
+export const not = (fn) => (...args) => !fn(...args)
+
+export const when = (fn) => (predicate) => (...args) => predicate(...args) ? !fn(...args) : undefined
 
 const insertSortedValue = (fn) => (arr, value) => [...arr.filter(n => fn(n, value)), value, ...arr.filter(n => !fn(n,value))]
