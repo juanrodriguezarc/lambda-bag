@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: "./src/index.js",
-  mode: 'development',
-  watch: true,
+  mode: 'production',
+  watch: false,
   module: {
     rules: [
       {

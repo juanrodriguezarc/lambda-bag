@@ -1,6 +1,6 @@
 {
   "name": "lambda-bag",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Functional utility toolbelt for vanillaJS",
   "main": "lamba-bag.js",
   "scripts": {
@@ -10,7 +10,13 @@
     "lint": "eslint",
     "start": "webpack-dev-server --inline",
     "test:coverage": "jest --coverage",
-    "test": "jest"
+    "test": "jest",
+    "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   },
   "repository": {
     "type": "git",
@@ -51,8 +57,8 @@
     "ts-loader": "^6.1.0",
     "typescript": "^3.5.3",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5",
-    "webpack-dev-server": "^3.7.2"
-  },
-  "dependencies": {}
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.7.2",
+    "acorn": "^7.1.0"
+  }
 }
