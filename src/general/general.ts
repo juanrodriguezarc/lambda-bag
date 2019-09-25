@@ -1,10 +1,11 @@
+import { fn } from '../types'
 /**
  * 
  * Returns the type of the given object
- * @param {object} obj 
+ * @param {any} obj 
  * @returns {string} Type of the object
  */
-export const type = (obj ) => Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+export const type = (obj : any) : string => Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
 
 /**
  * Method to get the current date
@@ -16,43 +17,51 @@ export const now = () : number => Date.now()
  *  Removes from the EventTarget an event listener previously 
  *  registered with EventTarget.addEventListener() 
  */
-export const removeListener = (handler, eventName) => (item) => item.removeEventListener(eventName, handler)
+/**
+ * 
+ * @param {EventListenerOrEventListenerObject} handler
+ * @param {string} eventName 
+ * @param {Element} item 
+ */
+export const removeListener = 
+  (handler : EventListenerOrEventListenerObject, eventName : string) : ((_ : Element) => void) =>
+  (item: Element) : void => item.removeEventListener(eventName, handler)
 
 /**
  * Sets up a function that will be called whenever the specified 
  * event is delivered to the target
  */
-export const addListener = (handler, eventName) => (item) => item.addEventListener(eventName, handler)
+export const addListener = (handler: EventListenerOrEventListenerObject, eventName: string) => (item: Element) => item.addEventListener(eventName, handler)
 
 /**
  * Way to run JavaScript code as soon as the page's DOM becomes safe to manipulate 
  */
-export const isDocReady = (fn) => (item = document) => item.readyState != 'loading' ? fn() : item.addEventListener('DOMContentLoaded', fn)
+export const isDocReady = (fn: fn) => (item = document) => item.readyState != 'loading' ? fn() : item.addEventListener('DOMContentLoaded', fn)
 
 /**
  * Returns the length to the given array or string 
  */
-export const count = (str) => str.length
+export const count = (str: string) => str.length
 
 /**
  * Refreshs/ changes the current page location
  */
-export const goTo = (URL) => window.location.href = URL
+export const goTo = (URL: string) => window.location.href = URL
 
 /**
  * Covers a form into a string object ready to use
  */
-export const serialize = (form) => Array.from( new FormData(form), e => e.map(encodeURIComponent).join('=')).join('&')
+export const serialize = (form: HTMLFormElement) => Array.from( new FormData(form), (e:any) => e.map(encodeURIComponent).join('=')).join('&')
 
 /**
  * Returns the URL query string value 
  */
-export const getQueryValue = (value) => (new URLSearchParams(window.location.search)).get(value)
+export const getQueryValue = (value: string) => (new URLSearchParams(window.location.search)).get(value)
 
 /**
  * Returns if the current screen width size is valid for the device type given
  */
-export const isDevice = (deviceType) => window.innerWidth <= breakpoints[deviceType]
+export const isDevice = (deviceType: string) => window.innerWidth <= breakpoints[deviceType]
 
 /**
  * Screen width and height  
@@ -62,7 +71,7 @@ export const screen = () => ({ width: window.innerWidth, height: window.innerHei
 /**
  * Screen breakpoints commonly used
  */
-export const breakpoints = {
+export const breakpoints: any = {
   sm_phone: 320,
   md_phone: 480,
   lg_phone: 600,
@@ -74,7 +83,7 @@ export const breakpoints = {
 /**
  * Convers a string object into a html document object
  */
-export const toHTML = (str) => {
+export const toHTML = (str: string) => {
   const html = document.implementation.createHTMLDocument()
   html.body.innerHTML = str
   return html.body.children
@@ -83,20 +92,33 @@ export const toHTML = (str) => {
 /**
  * Returns the element width and height
  */
-export const getSize = (item) => ({
+export const getSize = (item: HTMLElement) => ({
   width: parseFloat(getComputedStyle(item, null).width.replace("px", "")),
   height :parseFloat(getComputedStyle(item, null).height.replace("px", ""))
 })
 
+/**
+ * Returns the value to the query string parameter 
+ * @param str 
+ */
 export const getQueryParams = (str = location.search) => decodeURIComponent(str).replace('?','').split('&').map(i => i.split('='))
 
-export const setQueryParam = (key,value) => {
+/**
+ * 
+ * @param key 
+ * @param value 
+ */
+export const setQueryParam = (key: string, value: string) => {
   const url = new URL(window.location.href);
   url.searchParams.set(key,value);
   window.history.replaceState('','', `${window.location.pathname}${url.search}`);
 }
 
-export const rmQueryParam = (key) => {
+/**
+ * 
+ * @param key 
+ */
+export const rmQueryParam = (key: string) => {
   const url = new URL(window.location.href);
   url.searchParams.delete(key);
   window.history.replaceState('','', `${window.location.pathname}${url.search}`);
@@ -113,4 +135,4 @@ export const cleanQueryParams = () => window.history.replaceState('','', `${loca
  * @param {object} options 
  * Scrolls to a particular set of coordinates in the document.
  */
-export const scrollToElem = (item, options = { behavior: 'smooth', block: 'center' }) => item.scrollIntoView(options)
+export const scrollToElem = (item : Element, options: any = { behavior: 'smooth', block: 'center' }) => item.scrollIntoView(options)

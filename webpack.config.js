@@ -15,7 +15,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.tsx', '.ts', '.json']
   },
   output: {
-    filename: "bundle.js",
+    filename: "lambda.bag.dist.js",
   },
 }
 

@@ -47,7 +47,6 @@ import {
 
 import { testInBrowser } from '../utils/browser'
 
-
 describe('General DOM functions', () => {
 
   it('Should return the a valid datetime', async () => {
