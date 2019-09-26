@@ -11,7 +11,7 @@
     "start": "webpack-dev-server --inline",
     "test:coverage": "jest --coverage",
     "test": "jest",
-    "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc"
+    "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc && npm publish"
   },
   "husky": {
     "hooks": {

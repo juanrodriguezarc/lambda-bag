@@ -13,6 +13,13 @@ export const selectAll = (query: string) =>  (item: Document = document)  =>  [.
  */
 export const select = (query: string) => (item = document) : doc => item.querySelector(query)
 
+/**
+ * Returns the last Element within the document that matches the specified selector, 
+ * or group of selectors. If no matches are found, null is returned.
+ * @param {string} query String must be a valid CSS selector string
+ */
+export const last = (query: string) => (item = document) =>  [...item.querySelectorAll(query)].slice(-1)[0]
+
 /** 
  * Returns a Boolean value indicating whether a class is a present of a specified node.
 */
