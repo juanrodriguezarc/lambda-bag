@@ -1,6 +1,6 @@
 {
   "name": "lambda-bag",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Functional utility toolbelt for vanillaJS",
   "main": "lamba-bag.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "start": "webpack-dev-server --inline",
     "test:coverage": "jest --coverage",
     "test": "jest",
-    "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc && npm publish"
+    "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc"
   },
   "husky": {
     "hooks": {
