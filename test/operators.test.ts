@@ -134,7 +134,6 @@ describe('Compose - function composition', () => {
       map(double),
     )(integerArray)
     expect(result).toEqual(expected);
-    console.log('xxxxx', { expected , result })
   });
 
   it('Filter all odd numbers', () => {

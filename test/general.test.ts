@@ -19,12 +19,11 @@ import {
   type,
 } from '../src/general';
 
-import { testInBrowser } from '../utils/browser'
 
 describe('General browser functions', () => {
 
   it('Should return the a valid datetime', async () => {
-    const result = await testInBrowser({ fn: now }) 
+    const result = now()
     expect(new Date(result)).toBeTruthy();
   });
 
