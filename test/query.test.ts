@@ -10,7 +10,7 @@ import {
   closest,
   contains,
   dataset,
-  docFilter,
+  filterElements,
   empty,
   getAttr,
   getHtml,
@@ -68,7 +68,7 @@ describe('General DOM functions', () => {
       return true
     }, mapToFn(
       addClass, after, animate, append, appendHtml, before, 
-      clone, closest, contains, dataset, docFilter, empty, 
+      clone, closest, contains, dataset, filterElements, empty, 
       getAttr, getHtml, getStyle, getText, getViewPort, 
       hasClass, hide, last, match, nextSibling, opacity, 
       outerHtml, prepend, prevSibling, remove, replaceHtml, 
@@ -79,7 +79,7 @@ describe('General DOM functions', () => {
   })
 
   afterAll(async () => {
-    await chromeless.end()
+    // await chromeless.end()
     return true
   })
 
@@ -218,29 +218,26 @@ describe('General DOM functions', () => {
     expect(result).toBeTruthy()
   })
 
-  it('Should filter all e the dataset value', async () => {
+  it('Should filter elements by the dataset value', async () => {
     const result = await chromeless.evaluate(() => {
-      const { dataset } = window.query
+      const { dataset, append, filterElements } = window.query
 
-      const elements = new Array(10)
-      const parent = document.createElement('parent')
+      const elements = Array.from({ length: 10 }, (_, i) => i)
+      const parent = document.querySelector('body')
 
-      elements.map(() => {
+      elements.map(_ => {
         const num = Math.floor(Math.random() * 10)
         const div = document.createElement('div')
-        div.setAttribute('data-value', `${num}`)
-        parent.appendChild(div)
-        return div
+        div.setAttribute('data-filter', `${num}`)
+        append(div)(parent)
       })
 
-      const moreThanFive = (item) => +dataset('value')(item) > 5
 
-      const result = docFilter(moreThanFive)('div')(parent)
+      const moreThanFive = (item) => +dataset('filter')(item) > 5
+      const filterResult = filterElements(moreThanFive)('div')()
+      const result = filterResult.reduce((acc, elem) => acc = acc && +dataset('filter')(elem) > 5, true)
 
-      console.log(result)
-
-    
-      return !!result
+      return result
       
     })
     expect(result).toBeTruthy()
@@ -248,41 +245,6 @@ describe('General DOM functions', () => {
 
 
   
-  // docFilter,
-  // empty,
-  // getAttr,
-  // getHtml,
-  // getStyle,
-  // getText,
-  // getViewPort,
-  // hasClass,
-  // hide,
-  // last,
-  // match,
-  // nextSibling,
-  // opacity,
-  // outerHtml,
-  // prepend,
-  // prevSibling,
-  // remove,
-  // replaceHtml,
-  // rmAttr,
-  // rmChild,
-  // rmClass,
-  // scrollToElem,
-  // select,
-  // selectAll,
-  // setAttr,
-  // setHtml,
-  // setStyles,
-  // setText,
-  // show,
-  // siblings,
-  // submit,
-
-  // trigger,
-  // value
-
 
 
 

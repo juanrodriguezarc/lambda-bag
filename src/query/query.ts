@@ -4,7 +4,7 @@ import { fn, doc } from '../types'
  * elements that match the specified group of selectors.
  * @param {string} query String must be a valid CSS selector string
 */
-export const selectAll = (query: string) =>  (item: Document = document)  =>  [...item.querySelectorAll(query)]
+export const selectAll = (query: string) =>  (item: Document = document)  =>  Array.from(item.querySelectorAll(query))
 
 /**
  * Returns the first Element within the document that matches the specified selector, 
@@ -18,7 +18,7 @@ export const select = (query: string) => (item = document) : doc => item.querySe
  * or group of selectors. If no matches are found, null is returned.
  * @param {string} query String must be a valid CSS selector string
  */
-export const last = (query: string) => (item = document) =>  [...item.querySelectorAll(query)].slice(-1)[0]
+export const last = (query: string) => (item = document) =>  Array.from(item.querySelectorAll(query)).slice(-1)[0]
 
 /** 
  * Returns a Boolean value indicating whether a class is a present of a specified node.
@@ -192,7 +192,7 @@ export const empty = (item: Element) => item.innerHTML = ''
  * Returns all elements that accomplish the given condition
  * @param {string} query String must be a valid CSS selector string
  */
-export const docFilter = (fn: fn) => (query: string) => (item = document) => selectAll(query)(item).filter(fn)
+export const filterElements = (fn: fn) => (query: string) => (item = document) => Array.from(item.querySelectorAll(query)).filter(fn)
 
 /**
  * Returns the outerHTML of the given element
