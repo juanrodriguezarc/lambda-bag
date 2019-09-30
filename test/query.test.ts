@@ -208,7 +208,7 @@ describe('General DOM functions', () => {
     expect(result).toBeTruthy()
   })
 
-  it('Should aget the data set value', async () => {
+  it('Should get the dataset value', async () => {
     const result = await chromeless.evaluate(() => {
       const { dataset } = window.query
       const div = document.createElement('div')
@@ -218,8 +218,36 @@ describe('General DOM functions', () => {
     expect(result).toBeTruthy()
   })
 
+  it('Should filter all e the dataset value', async () => {
+    const result = await chromeless.evaluate(() => {
+      const { dataset } = window.query
 
-  // dataset,
+      const elements = new Array(10)
+      const parent = document.createElement('parent')
+
+      elements.map(() => {
+        const num = Math.floor(Math.random() * 10)
+        const div = document.createElement('div')
+        div.setAttribute('data-value', `${num}`)
+        parent.appendChild(div)
+        return div
+      })
+
+      const moreThanFive = (item) => +dataset('value')(item) > 5
+
+      const result = docFilter(moreThanFive)('div')(parent)
+
+      console.log(result)
+
+    
+      return !!result
+      
+    })
+    expect(result).toBeTruthy()
+  })
+
+
+  
   // docFilter,
   // empty,
   // getAttr,
