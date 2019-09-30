@@ -141,7 +141,7 @@ export const animate = (keyframes: any, options: any) => (item: Element) => item
  * Parses the specified text as HTML or XML and inserts the resulting 
  * nodes into the DOM tree at a end position.
  */
-export const appendHtml = (item: Element) => (html: string, option: InsertPosition = 'beforeend') => item.insertAdjacentHTML(option,html)
+export const appendHtml = (html: string, option: InsertPosition = 'beforeend') => (item: Element) => item.insertAdjacentHTML(option,html)
 
 /**
  * Changes the opacity to the given element
