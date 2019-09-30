@@ -44,8 +44,10 @@
     "@babel/preset-typescript": "^7.6.0",
     "@babel/runtime": "^7.5.5",
     "@types/jest": "^24.0.18",
+    "acorn": "^7.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "chromeless": "^1.5.2",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
@@ -53,12 +55,10 @@
     "eslint": "^6.3.0",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
-    "puppeteer": "^1.19.0",
     "ts-loader": "^6.1.0",
     "typescript": "^3.5.3",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.7.2",
-    "acorn": "^7.1.0"
+    "webpack-dev-server": "^3.7.2"
   }
 }

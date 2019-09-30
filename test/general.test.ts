@@ -19,15 +19,16 @@ import {
   type,
 } from '../src/general';
 
+import { Chromeless } from 'chromeless'
 
 describe('General browser functions', () => {
 
-  it('Should return the a valid datetime', async () => {
-    const result = now()
-    expect(new Date(result)).toBeTruthy();
-  });
+  // In progress
+  it('Should return the string lenght', async () => {
 
-  it('Should handle the query string params', async () => { })
+    expect(true).toEqual(true);
+
+  });
 
 
 })
