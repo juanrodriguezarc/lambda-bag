@@ -16,22 +16,40 @@ import {
   serialize,
   setQueryParam,
   toHTML,
-  type,
-} from '../src/general';
+  type
+} from "../src/general";
 
-import { Chromeless } from 'chromeless'
+import { Chromeless } from "chromeless";
 
-describe('General browser functions', () => {
+describe("General browser functions", () => {
 
-  // In progress
-  it('Should return the string lenght', async () => {
+  const chromeless = new Chromeless();
+  const mapToFn = (...args) => args.map(fn => ` ${fn}`);
 
-    expect(true).toEqual(true);
+  beforeAll(async () => {
+    await chromeless.evaluate(args => {
+      eval(`window.general = {}`);
 
+      for (var i = 0; i < args.length; i++) {
+        const regex = /function\s(.*)\(/g;
+        const match = regex.exec(args[i]);
+
+        if(match)
+          eval(`window.general['${match[1]}'] = ${args[i]}`);
+      }
+
+      return true;
+    }, mapToFn(
+      addListener, breakpoints, cleanQueryParams, count, 
+      getQueryParams, getQueryValue, getSize, goTo, isDevice, 
+      isDocReady, now, removeListener, rmQueryParam, 
+      serialize, setQueryParam, toHTML, type
+    ));
   });
 
+  // In progress
+  it("Should return the string lenght", async () => {
+    expect(true).toEqual(true);
+  });
 
-})
-
-
-
+});
