@@ -52,7 +52,6 @@ describe("General browser functions", () => {
     return true
   });
 
-
   // In progress
   it("Should return the string lenght", async () => {
     expect(true).toEqual(true);

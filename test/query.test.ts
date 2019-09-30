@@ -244,9 +244,5 @@ describe('General DOM functions', () => {
   })
 
 
-  
-
-
-
 
 })
