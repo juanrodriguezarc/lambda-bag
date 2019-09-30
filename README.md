@@ -12,11 +12,17 @@ Basically you won't need any library or be attached to one framework instead of 
 
 You'll have some parts of jQuery, loadash, angular, react and other libraries
 
-## [Documentation](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/)
+## [Installation](https://www.npmjs.com/package/lambda-bag)
+
+```
+npm install lambda-bag
+```
 
 ## Usage
 
-### DOM API
+### [Documentation](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/)
+
+### Browser API
 
 This module creates an API for common Browser API using simplified and friendly syntax (Similar to JQuery). It can be combined with observers, functional operators & helpers included below
 
@@ -41,7 +47,7 @@ toggleAttr(modal,'hide')
 
 [View all](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/identifiers.html#query)
 
-### FP Operators
+### Functional Operators
 
 ```js
 import { pipe, map, add } from 'operators'
@@ -56,7 +62,7 @@ pipe(
 
 [View all operators](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/identifiers.html#operators)
 
-### Observers
+### Observers API
 ```js
 import { Observer } from 'observers'
 const AppState = State; 

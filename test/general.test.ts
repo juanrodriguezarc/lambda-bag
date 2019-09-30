@@ -47,6 +47,12 @@ describe("General browser functions", () => {
     ));
   });
 
+  afterAll(async () => {
+    await chromeless.end();
+    return true
+  });
+
+
   // In progress
   it("Should return the string lenght", async () => {
     expect(true).toEqual(true);

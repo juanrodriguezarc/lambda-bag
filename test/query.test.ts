@@ -78,25 +78,43 @@ describe("General DOM functions", () => {
     ));
   });
 
-  it("Should toggle the selector class", async () => {
-    const result = await chromeless.evaluate(args => {
-      const { toggleClass } = window.query
-      const body = document.querySelector("body");
-      toggleClass("active")(body);
-      return body.classList.contains("active");
-    }, mapToFn(toggleClass));
+  afterAll(async () => {
+    await chromeless.end();
+    return true
+  });
 
+  it("Should add a class to the body element", async () => {
+    const result = await chromeless.evaluate(() => {
+      const { addClass } = window.query
+      const body = document.querySelector("body")
+      addClass('newClass')(body)
+      return body.classList.contains("newClass")
+    })
+    expect(result).toBeTruthy();
+  });
+
+  it("Should toggle the selector class", async () => {
+    const result = await chromeless.evaluate(() => {
+      const { toggleClass } = window.query
+      const body = document.querySelector("body")
+      toggleClass("active")(body)
+      return body.classList.contains("active")
+    })
     expect(result).toBeTruthy();
   });
 
   it("Should toggle attribute", async () => {
-    const result = await chromeless.evaluate(args => {
+    const result = await chromeless.evaluate(() => {
       const { toggleAttr } = window.query
-      const body = document.querySelector("body");
-      toggleAttr('attribute')(body);
-      return body.hasAttribute("attribute");
-    }, mapToFn(toggleAttr));
-
-    expect(result).toBeTruthy();
+      const body = document.querySelector("body")
+      toggleAttr('attribute')(body)
+      return body.hasAttribute("attribute")
+    })
+    expect(result).toBeTruthy()
   });
+
+
+
+
+
 });

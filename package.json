@@ -1,6 +1,6 @@
 {
   "name": "lambda-bag",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Functional utility toolbelt for vanillaJS",
   "main": "lamba-bag.js",
   "scripts": {
@@ -26,7 +26,9 @@
     "functional",
     "javascript",
     "toolbelt",
-    "utilities"
+    "utilities",
+    "observers",
+    "state"
   ],
   "author": "Juan Rodriguez Arce",
   "license": "MIT",
