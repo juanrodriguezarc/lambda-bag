@@ -65,6 +65,8 @@ describe('General DOM functions', () => {
           eval(`window.query['${match[1]}'] = ${args[i]}`)
       }
 
+      console.log({ window }, 't233est')
+
       return true
     }, mapToFn(
       addClass, after, animate, append, appendHtml, before, 
@@ -242,6 +244,324 @@ describe('General DOM functions', () => {
     })
     expect(result).toBeTruthy()
   })
+
+  //@InProgress
+  it("Should addClass", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { addClass } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should after", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { after } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should animate", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { animate } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should append", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { append } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should appendHtml", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { appendHtml } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should before", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { before } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should clone", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { clone } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should closest", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { closest } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should contains", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { contains } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should dataset", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { dataset } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should filterElements", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { filterElements } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should empty", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { empty } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should getAttr", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { getAttr } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should getHtml", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { getHtml } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should getStyle", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { getStyle } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should getText", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { getText } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should getViewPort", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { getViewPort } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should hasClass", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { hasClass } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should hide", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { hide } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should last", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { last } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should match", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { match } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should nextSibling", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { nextSibling } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should opacity", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { opacity } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should outerHtml", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { outerHtml } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should prepend", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { prepend } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should prevSibling", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { prevSibling } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should remove", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { remove } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should replaceHtml", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { replaceHtml } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should rmAttr", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { rmAttr } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should rmChild", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { rmChild } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should rmClass", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { rmClass } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should scrollToElem", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { scrollToElem } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should select", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { select } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should selectAll", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { selectAll } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should setAttr", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { setAttr } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should setHtml", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { setHtml } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should setStyles", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { setStyles } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should setText", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { setText } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should show", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { show } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should siblings", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { siblings } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should submit", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { submit } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should toggleAttr", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { toggleAttr } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should toggleClass", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { toggleClass } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should trigger", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { trigger } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+  //@InProgress
+  it("Should value", async () => {
+    const result = await chromeless.evaluate(() => { 
+      const { value } = window.query
+    })
+    expect(true).toEqual(true)
+  })
+
+
 
 
 
