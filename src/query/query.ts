@@ -28,7 +28,7 @@ export const hasClass = (tag: string) => (item: Element) => item.classList.conta
 /**
  * Returns a Boolean value indicating whether a node is a descendant of a specified node.
 */
-export const contains = (tag: string) => (item: Element) => item.classList.contains(tag)
+export const contains = (child: Element) => (item: Element) => item.contains(child)
 
 /**
  * Returns the element immediately following the specified element, in the same tree level.
@@ -87,7 +87,7 @@ export const remove = (item: Element) => item.remove()
  * Returns the inner value of the selected element
  * @param {string} query String must be a valid CSS selector string
 */
-export const value =  (query: string) => (item: any = document) => item.querySelector(query).value
+export const value =  (query?: string) => (item: any = document) => query ? item.querySelector(query).value : item.value
 
 /** 
  * Returns the data set attr-value of the selected element
@@ -118,17 +118,17 @@ export const toggleClass = (cls: string) => (item: Element) => item.classList.to
  * Any child nodes are removed and replaced by a single Text node 
  * containing the specified string
  */
-export const setText = (item: HTMLElement) => (text : string) => item.innerText = text
+export const setText = (text : string) => (item: HTMLElement) =>  item.innerText = text
 
 /**
  * Sets the HTML or XML markup contained within the element.
  */
-export const setHtml = (item: Element) => (html: string) => item.innerHTML = html
+export const setHtml = (html: string) => (item: Element) => item.innerHTML = html
 
 /**
  * Gets the HTML or XML markup contained within the element.
  */
-export const getHtml = (item: Element) => (html: string) => item.innerHTML = html
+export const getHtml = (item: Element) => item.innerHTML
 
 /**
  * Is a shortcut method which creates a new Animation, 
@@ -151,7 +151,7 @@ export const opacity = (value: string) => (item: HTMLElement) => item.style.opac
 /**
  * Applies all styles using a JS object to the given element
  */
-export const setStyles = (styles: object) => (item: Element) => item.setAttribute("style", Object.entries(styles).map(([key, value]) => `${key}: ${value};`).join(' '))
+export const setStyles = (styles: object) => (item: Element) => item.setAttribute("style", Object.entries(styles).map((item) => `${item[0]}: ${item[1]};`).join(' '))
 
 /**
  * Remove display style to the element
@@ -233,7 +233,7 @@ export const replaceHtml = (str: string) => (item: Element) => item.outerHTML = 
 /**
  * Returns all siblings elements of the given element
  */
-export const siblings = (item:any) => [...item.parentNode.children].filter((child) => child !== item)
+export const siblings = (item:any) =>  Array.from(item.parentNode.children).filter((child) => child !== item)
 
 /**
  * Scrolls to the selected element
@@ -241,6 +241,13 @@ export const siblings = (item:any) => [...item.parentNode.children].filter((chil
  * @param options 
  */
 export const scrollToElem = (item: Element, options: any = { behavior: 'smooth', block: 'center' }) => item.scrollIntoView(options)
+
+/**
+ * Change CSS variable  
+ * @param key 
+ * @param value 
+ */
+export const setCssVar = (key: string, value: string | null) => document.documentElement.style.setProperty(key, value)
 
 /**
  * Dispatches an Event at the specified element, (synchronously) 

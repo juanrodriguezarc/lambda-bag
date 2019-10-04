@@ -35,6 +35,7 @@ import {
   select,
   selectAll,
   setAttr,
+  setCssVar,
   setHtml,
   setStyles,
   setText,
@@ -47,11 +48,10 @@ import {
   value
 } from '../src/query'
 
-import { Chromeless } from 'chromeless'
+import { chromeless } from './index'
 
 describe('General DOM functions', () => {
 
-  const chromeless = new Chromeless()
   const mapToFn = (...args) => args.map(fn => ` ${fn}`)
 
   beforeAll(async () => {
@@ -65,8 +65,6 @@ describe('General DOM functions', () => {
           eval(`window.query['${match[1]}'] = ${args[i]}`)
       }
 
-      console.log({ window }, 't233est')
-
       return true
     }, mapToFn(
       addClass, after, animate, append, appendHtml, before, 
@@ -75,7 +73,7 @@ describe('General DOM functions', () => {
       hasClass, hide, last, match, nextSibling, opacity, 
       outerHtml, prepend, prevSibling, remove, replaceHtml, 
       rmAttr, rmChild, rmClass, scrollToElem, select, selectAll, 
-      setAttr, setHtml, setStyles, setText, show, siblings, submit, 
+      setAttr, setHtml, setCssVar, setStyles, setText, show, siblings, submit, 
       toggleAttr, toggleClass, trigger, value
     ))
   })
@@ -202,10 +200,10 @@ describe('General DOM functions', () => {
 
   it('Should add a class an verify it contains the selector', async () => {
     const result = await chromeless.evaluate(() => {
-      const { addClass, contains } = window.query
+      const { addClass } = window.query
       const div = document.createElement('div')
       addClass('new-class')(div)
-      return contains('new-class')(div)
+      return div.classList.contains('new-class')
     })
     expect(result).toBeTruthy()
   })
@@ -245,103 +243,67 @@ describe('General DOM functions', () => {
     expect(result).toBeTruthy()
   })
 
-  //@InProgress
-  it("Should addClass", async () => {
+  it("Should add the selector class", async () => {
     const result = await chromeless.evaluate(() => { 
       const { addClass } = window.query
+      const div = document.createElement('div')
+      addClass('test')(div)
+      return div.classList.contains('test')
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should after", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { after } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should animate", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { animate } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should append", async () => {
+
+  it("Should append an item to the parent container", async () => {
     const result = await chromeless.evaluate(() => { 
       const { append } = window.query
+      const container = document.createElement('container')
+      const div = document.createElement('div')
+      append(div)(container)
+      return container.hasChildNodes()
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should appendHtml", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { appendHtml } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should before", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { before } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should clone", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { clone } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should closest", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { closest } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should contains", async () => {
+
+  it("Should return if the elements contains the child", async () => {
     const result = await chromeless.evaluate(() => { 
       const { contains } = window.query
+      
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      container.appendChild(div1)
+      
+      return contains(div1)(container)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should dataset", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { dataset } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should filterElements", async () => {
-    const result = await chromeless.evaluate(() => { 
-      const { filterElements } = window.query
-    })
-    expect(true).toEqual(true)
-  })
-  //@InProgress
-  it("Should empty", async () => {
+
+  it("Should remove the inner html", async () => {
     const result = await chromeless.evaluate(() => { 
       const { empty } = window.query
+      const item = document.createElement('container')
+      empty(item)
+      return item.innerHTML == ''
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should getAttr", async () => {
+
+  it("Should return the attribute value", async () => {
     const result = await chromeless.evaluate(() => { 
       const { getAttr } = window.query
+      const item = document.createElement('div')
+      item.setAttribute("foo", "bar")
+      return getAttr('foo')(item) == 'bar'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should getHtml", async () => {
+  
+  it("Should get the element html string", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { getHtml } = window.query
+      const { getHtml, select } = window.query
+      const item = select('body')()
+      return item.innerHTML == getHtml(item)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   //@InProgress
   it("Should getStyle", async () => {
@@ -350,12 +312,14 @@ describe('General DOM functions', () => {
     })
     expect(true).toEqual(true)
   })
-  //@InProgress
+  
   it("Should getText", async () => {
     const result = await chromeless.evaluate(() => { 
       const { getText } = window.query
+      const item = document.createElement('div')
+      return item.textContent == getText(item)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   //@InProgress
   it("Should getViewPort", async () => {
@@ -364,12 +328,15 @@ describe('General DOM functions', () => {
     })
     expect(true).toEqual(true)
   })
-  //@InProgress
+  
   it("Should hasClass", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { hasClass } = window.query
+      const { hasClass, addClass } = window.query
+      const item = document.createElement('div')
+      addClass('test')(item)
+      return hasClass('test')(item)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   //@InProgress
   it("Should hide", async () => {
@@ -469,19 +436,21 @@ describe('General DOM functions', () => {
     })
     expect(true).toEqual(true)
   })
-  //@InProgress
-  it("Should select", async () => {
+  
+  it("Should return the selected element", async () => {
     const result = await chromeless.evaluate(() => { 
       const { select } = window.query
+      return !!select('body')()
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should selectAll", async () => {
+
+  it("Should select all elements that match with the given query", async () => {
     const result = await chromeless.evaluate(() => { 
       const { selectAll } = window.query
+      return selectAll('div')().length > 0
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   //@InProgress
   it("Should setAttr", async () => {
@@ -490,79 +459,124 @@ describe('General DOM functions', () => {
     })
     expect(true).toEqual(true)
   })
-  //@InProgress
-  it("Should setHtml", async () => {
+  
+  it("Should set the html content", async () => {
     const result = await chromeless.evaluate(() => { 
       const { setHtml } = window.query
+      const item = document.createElement('div')
+      const html = `<div>TEST</div>`
+      setHtml(html)(item)
+
+      return item.innerHTML == html
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should setStyles", async () => {
+  
+  it("Should set styles element", async () => {
     const result = await chromeless.evaluate(() => { 
       const { setStyles } = window.query
+      const div = document.createElement('div')
+      setStyles({ display: 'none' })(div)
+      return div.style.display == 'none'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should setText", async () => {
+  
+  it("Should set text element", async () => {
     const result = await chromeless.evaluate(() => { 
       const { setText } = window.query
+      const div = document.createElement('div')
+      setText('test')(div)
+      return div.innerText == 'test'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should show", async () => {
+
+  it("Should change the state to show", async () => {
     const result = await chromeless.evaluate(() => { 
       const { show } = window.query
+      const div = document.createElement('div')
+      show(div)
+      return div.style.display == ''
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should siblings", async () => {
+  
+  it("Should return the siblings", async () => {
     const result = await chromeless.evaluate(() => { 
       const { siblings } = window.query
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      const div2 = document.createElement('div2')
+      const div3 = document.createElement('div3')
+      const div4 = document.createElement('div4')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+      container.appendChild(div4)
+
+      const result = siblings(div3)
+      return result[0].matches('div1') && result[1].matches('div2') && result[2].matches('div4')
+      
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should submit", async () => {
+
+  it("Should dispatch the submit event", async () => {
     const result = await chromeless.evaluate(() => { 
       const { submit } = window.query
+      const form = document.createElement('form')
+      submit(form)
+      return true
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should toggleAttr", async () => {
+
+  it("Should toggle the attribute", async () => {
     const result = await chromeless.evaluate(() => { 
       const { toggleAttr } = window.query
+      const div = document.createElement('div')
+      toggleAttr('test')(div)
+      const withAtrr = div.hasAttribute('test')
+      toggleAttr('test')(div)
+      const withoutAtrr = !div.hasAttribute('test')
+      return withAtrr && withoutAtrr
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should toggleClass", async () => {
+
+  it("Should toggle the class selector", async () => { 
     const result = await chromeless.evaluate(() => { 
       const { toggleClass } = window.query
+      const div = document.createElement('div')
+      toggleClass('test')(div)
+      const withClass = div.classList.contains('test')
+      toggleClass('test')(div)
+      const withoutClass = !div.classList.contains('test')
+      return withClass && withoutClass
     })
-    expect(true).toEqual(true)
+
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should trigger", async () => {
+  
+  it("Should add/dispatch the event trigger", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { trigger } = window.query
+      const { trigger  } = window.query
+      const div = document.createElement('div')      
+      return trigger('click')(div)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should value", async () => {
+  
+  it("Should get the input value", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { value } = window.query
+      const { value, setAttr } = window.query
+      const input = document.createElement('input')
+      setAttr('value','5')(input)
+      return value()(input) == '5'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-
-
-
-
 
 })

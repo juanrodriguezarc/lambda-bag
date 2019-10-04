@@ -19,14 +19,12 @@ import {
   type
 } from "../src/general";
 
-import { Chromeless } from "chromeless";
+import { chromeless } from "./index";
 
 describe("General browser functions", () => {
 
-  const chromeless = new Chromeless();
+  
   const mapToFn = (...args) => args.map(fn => ` ${fn}`);
-
-  console.log('test', chromeless)
 
   beforeAll(async () => {
     await chromeless.evaluate(args => {
@@ -39,8 +37,6 @@ describe("General browser functions", () => {
           eval(`window.general['${match[1]}'] = ${args[i]}`)
       }
 
-      console.log({ window }, 'test')
-
       return true;
     }, mapToFn(
       addListener, breakpoints, cleanQueryParams, count, 
@@ -51,7 +47,7 @@ describe("General browser functions", () => {
   });
 
   afterAll(async () => {
-    await chromeless.end();
+    // await chromeless.end();
     return true
   });
     
