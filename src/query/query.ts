@@ -217,7 +217,7 @@ export const match = (other: Element) => (item: Element) => item === other
 /**
  * Inserts a node before the reference node as a child of a specified parent node
  */
-export const prepend = (parent: Element) => (item: Element) => item.insertBefore(parent, parent.firstChild)
+export const prepend = (parent: Element) => (item: Element) => parent.insertBefore(item, parent.firstChild)
 
 /**
  * Returns the size of an element and its position relative to the viewport.

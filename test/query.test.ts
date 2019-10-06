@@ -305,15 +305,17 @@ describe('General DOM functions', () => {
     })
     expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should getStyle", async () => {
+  
+  it("Should returns the style value", async () => {
     const result = await chromeless.evaluate(() => { 
       const { getStyle } = window.query
+      const body =  document.querySelector('body')
+      return getStyle('display')(body) == 'block'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   
-  it("Should getText", async () => {
+  it("Should return the object text", async () => {
     const result = await chromeless.evaluate(() => { 
       const { getText } = window.query
       const item = document.createElement('div')
@@ -321,15 +323,17 @@ describe('General DOM functions', () => {
     })
     expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should getViewPort", async () => {
+  
+  it("Should return the element viewPort", async () => {
     const result = await chromeless.evaluate(() => { 
       const { getViewPort } = window.query
+      const body =  document.querySelector('body')
+      return !!getViewPort(body)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  
-  it("Should hasClass", async () => {
+
+  it("Should return if the element has the class", async () => {
     const result = await chromeless.evaluate(() => { 
       const { hasClass, addClass } = window.query
       const item = document.createElement('div')
@@ -338,103 +342,221 @@ describe('General DOM functions', () => {
     })
     expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should hide", async () => {
+
+  it("Should change the display status", async () => {
     const result = await chromeless.evaluate(() => { 
       const { hide } = window.query
+      const div = document.createElement('div')
+      hide(div)
+      return div.style.display == 'none'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should last", async () => {
+  
+  it("Should return the last element", async () => {
     const result = await chromeless.evaluate(() => { 
       const { last } = window.query
+      const container = document.createElement('container')
+      const div1 = document.createElement('div')
+      const div2 = document.createElement('div')
+      const div3 = document.createElement('div')
+      div3.setAttribute('last','true')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+
+      return !!last('div')(container).getAttribute('last')
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should match", async () => {
+
+  it("Should return if the elements match", async () => {
     const result = await chromeless.evaluate(() => { 
       const { match } = window.query
+      const body1 =  document.querySelector('body')
+      const body2 =  document.querySelector('body')
+      return match(body1)(body2)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should nextSibling", async () => {
+  
+  it("Should return next sibling", async () => {
     const result = await chromeless.evaluate(() => { 
       const { nextSibling } = window.query
+
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      const div2 = document.createElement('div2')
+      const div3 = document.createElement('div3')
+      const div4 = document.createElement('div4')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+      container.appendChild(div4)
+
+      return div3 == nextSibling(div2)
+
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should opacity", async () => {
+
+  it("Should change the element pacity", async () => {
     const result = await chromeless.evaluate(() => { 
       const { opacity } = window.query
+      const div = document.createElement('div')
+      opacity(0.4)(div)
+      return div.style.opacity == '0.4'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should outerHtml", async () => {
+  
+  it("Should return the outer html", async () => {
     const result = await chromeless.evaluate(() => { 
       const { outerHtml } = window.query
+
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      const div2 = document.createElement('div2')
+      const div3 = document.createElement('div3')
+      const div4 = document.createElement('div4')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+      container.appendChild(div4)
+
+      return outerHtml(container) == container.outerHTML
+
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should prepend", async () => {
+  
+  it("Should insert the element at the first postion", async () => {
     const result = await chromeless.evaluate(() => { 
       const { prepend } = window.query
+
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      const div2 = document.createElement('div2')
+      const div3 = document.createElement('div3')
+      const div4 = document.createElement('div4')
+      const foo = document.createElement('foo')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+      container.appendChild(div4)
+      container.appendChild(foo)
+
+    
+      prepend(container)(foo)
+
+      return container.firstElementChild == foo
+
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should prevSibling", async () => {
+  
+  it("Should return the previous sibling", async () => {
     const result = await chromeless.evaluate(() => { 
       const { prevSibling } = window.query
+
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      const div2 = document.createElement('div2')
+      const div3 = document.createElement('div3')
+      const div4 = document.createElement('div4')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+      container.appendChild(div4)
+
+      return div1 == prevSibling(div2)
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should remove", async () => {
+  
+  it("Should remove the inner element", async () => {
     const result = await chromeless.evaluate(() => { 
       const { remove } = window.query
+      const container = document.createElement('container')
+      const div = document.createElement('div')
+      container.appendChild(div)
+      remove(div)
+      return !container.firstElementChild
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should replaceHtml", async () => {
+
+  it("Should replace outer html", async () => {
     const result = await chromeless.evaluate(() => { 
       const { replaceHtml } = window.query
+      const container = document.createElement('container')
+      const div = document.createElement('div')
+      container.appendChild(div)
+      const html = '<outerHTML>foo</outerHTML>'
+      replaceHtml(html)(div)
+      return container.firstElementChild.matches('outerHTML')
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should rmAttr", async () => {
+
+  it("Should remove the element attribute", async () => {
     const result = await chromeless.evaluate(() => { 
       const { rmAttr } = window.query
+      const div = document.createElement('div')
+      div.setAttribute('foo', 'bar')
+      rmAttr('foo')(div)
+      return !div.getAttribute('foo')
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should rmChild", async () => {
+  
+  it("Should remove the child element", async () => {
     const result = await chromeless.evaluate(() => { 
       const { rmChild } = window.query
+
+      const container = document.createElement('container')
+      const div1 = document.createElement('div1')
+      const div2 = document.createElement('div2')
+      const div3 = document.createElement('div3')
+      const div4 = document.createElement('div4')
+
+      container.appendChild(div1)
+      container.appendChild(div2)
+      container.appendChild(div3)
+      container.appendChild(div4)
+
+      rmChild(div2)
+
+      return !container.querySelector('div2')
+
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should rmClass", async () => {
+
+  it("Should remove the class selector", async () => {
     const result = await chromeless.evaluate(() => { 
       const { rmClass } = window.query
+      const div = document.createElement('div')
+      div.classList.add('foo')
+      rmClass('foo')(div)
+      return !div.classList.contains('foo')
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
-  //@InProgress
+
   it("Should scrollToElem", async () => {
     const result = await chromeless.evaluate(() => { 
       const { scrollToElem } = window.query
+      const div = document.querySelector('div')
+      scrollToElem(div)
+      return true
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   
   it("Should return the selected element", async () => {
@@ -452,12 +574,15 @@ describe('General DOM functions', () => {
     })
     expect(result).toEqual(true)
   })
-  //@InProgress
-  it("Should setAttr", async () => {
+  
+  it("Should set the element attribute", async () => {
     const result = await chromeless.evaluate(() => { 
       const { setAttr } = window.query
+      const div = document.createElement('div')
+      setAttr('foo', 'bar')(div)
+      return div.getAttribute('foo') == 'bar'
     })
-    expect(true).toEqual(true)
+    expect(result).toEqual(true)
   })
   
   it("Should set the html content", async () => {
