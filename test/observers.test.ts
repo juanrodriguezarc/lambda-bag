@@ -1,7 +1,7 @@
 import {
   Observer,
   State
-} from '../src/observers/observers'
+} from '../src/observers'
 
 
 describe('Observables - CRUD operators', () => {

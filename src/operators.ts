@@ -1,4 +1,4 @@
-import { fn, list, value, bfn } from '../types'
+import { fn, list, value, bfn } from './types'
 /** 
  *  The purpose of this file is generate/introduce a toolbelt (Similar to loadash, Ramda, RxJS) 
  *  following the DRY principle and functional programming practices

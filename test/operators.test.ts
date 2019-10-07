@@ -9,7 +9,7 @@ import {
   toggle,
   set,
   spread,
-} from '../src/operators/operators';
+} from '../src/operators';
 
 // Auxiliar constants
 const integerArray = [1,2,3,4,5,6,7,8,9,10] 

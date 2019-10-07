@@ -15,7 +15,7 @@ import {
   setQueryParam,
   toHTML,
   type
-} from "../src/general/general";
+} from "../src/general";
 
 import { chromeless, localhost } from "./chromeless";
 
@@ -68,12 +68,6 @@ describe("General browser functions", () => {
       isDocReady, now, removeListener, rmQueryParam, 
       setQueryParam, toHTML, type
     ));
-  });
-
-  afterAll(async () => {
-    await localhost.end()
-    await chromeless.end()
-    return true
   });
     
   it("Should add the event listener", async () => {

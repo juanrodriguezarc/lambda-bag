@@ -1,4 +1,4 @@
-import { IObserver, ISubject,  fn } from '../types'
+import { IObserver, ISubject,  fn } from './types'
 /**
  * Method to be executed after subject notification
  * @param {*} fn Function that will be executed after the notify event

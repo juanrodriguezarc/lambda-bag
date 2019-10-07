@@ -1,4 +1,4 @@
-import { fn, IBreakpoints } from '../types'
+import { fn, IBreakpoints } from './types'
 /**
  * 
  * Returns the type of the given object

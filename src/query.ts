@@ -1,4 +1,4 @@
-import { fn, doc } from '../types'
+import { fn, doc } from './types'
 /**
  * Returns a static (not live) NodeList representing a list of the document's 
  * elements that match the specified group of selectors.

@@ -45,7 +45,7 @@ import {
   toggleClass,
   trigger,
   value
-} from '../src/query/query'
+} from '../src/query'
 
 import { chromeless } from './chromeless'
 
@@ -81,11 +81,6 @@ describe('General DOM functions', () => {
       setAttr, setHtml, setCssVar, setStyles, setText, show, siblings, submit, 
       toggleAttr, toggleClass, trigger, value
     ))
-  })
-
-  afterAll(async () => {    
-    await chromeless.end()
-    return true
   })
 
   it('Should add a class to the body element', async () => {
