@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   addClass,
   after,
@@ -46,9 +45,15 @@ import {
   toggleClass,
   trigger,
   value
-} from '../src/query'
+} from '../src/query/query'
 
-import { qChrome as chromeless } from './index'
+import { chromeless } from './chromeless'
+
+declare global {
+  interface Window {
+    query: any;
+  }
+}
 
 describe('General DOM functions', () => {
 

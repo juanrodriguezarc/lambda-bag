@@ -1,9 +1,7 @@
-
-/* eslint-disable no-undef */
 import {
   Observer,
   State
-} from '../src/observers'
+} from '../src/observers/observers'
 
 
 describe('Observables - CRUD operators', () => {

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   addListener,
   breakpoints,
@@ -13,13 +12,18 @@ import {
   now,
   removeListener,
   rmQueryParam,
-  serialize,
   setQueryParam,
   toHTML,
   type
-} from "../src/general";
+} from "../src/general/general";
 
-import { chromeless, localhost } from "./index";
+import { chromeless, localhost } from "./chromeless";
+
+declare global {
+  interface Window {
+    general: any;
+  }
+}
 
 describe("General browser functions", () => {
 
@@ -43,7 +47,7 @@ describe("General browser functions", () => {
       addListener, breakpoints, cleanQueryParams, count, 
       getQueryParams, getQueryValue, getSize, goTo, isDevice, 
       isDocReady, now, removeListener, rmQueryParam, 
-      serialize, setQueryParam, toHTML, type
+      setQueryParam, toHTML, type
     ));
 
     // For location purposes
@@ -62,7 +66,7 @@ describe("General browser functions", () => {
       addListener, breakpoints, cleanQueryParams, count, 
       getQueryParams, getQueryValue, getSize, goTo, isDevice, 
       isDocReady, now, removeListener, rmQueryParam, 
-      serialize, setQueryParam, toHTML, type
+      setQueryParam, toHTML, type
     ));
   });
 
@@ -214,27 +218,6 @@ describe("General browser functions", () => {
       return getQueryValue('foo6')
     })
     expect(result).toEqual(null)
-  })
-
-  it("Should serialize the form data", async () => {
-    const result = await chromeless.evaluate(() => {
-      const { serialize } = window.general
-      const form = document.createElement("form")
-      form.target = "foo"
-      form.method = "POST"
-      form.action = "delete"
-
-      const input = document.createElement("input")
-      input.type = 'hidden'
-      input.name = 'foo'
-      input.value = 'bar'
-
-      form.appendChild(input);
-
-      return serialize(form) == 'foo=bar'
-
-    })
-    expect(result).toEqual(true)
   })
 
   it("Should set the query param", async () => {

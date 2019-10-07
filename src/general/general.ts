@@ -49,11 +49,6 @@ export const count = (str: string) => str.length
 export const goTo = (URL: string) => window.location.href = URL
 
 /**
- * Covers a form into a string object ready to use
- */
-export const serialize = (form: HTMLFormElement) => Array.from( new FormData(form), (e:any) => e.map(encodeURIComponent).join('=')).join('&')
-
-/**
  * Returns the URL query string value 
  */
 export const getQueryValue = (value: string) => (new URLSearchParams(window.location.search)).get(value)

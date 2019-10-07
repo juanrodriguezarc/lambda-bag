@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
@@ -28,7 +29,8 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "/node_modules/"
+    "/node_modules/",
+    "/lib/",
   ],
 
   // A list of reporter names that Jest uses when writing coverage reports

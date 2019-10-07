@@ -2,8 +2,6 @@
 
 # Lambda Bag *·* [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-## Introduction 
-
 Functional JavaScript utility library focused in performance, modularity, and functional pattern.
 
 The idea of this project is a lightweight set of functions the will reduce the amount of code in your vanilla JS project
@@ -38,9 +36,9 @@ if (view.classList.contains("active")) {
 }
 
 // Do this
-import { toggleAttr } from 'query'
-const view = selectDoc('[view]')
-const modal = selectDoc('[modal]')
+import { toggleAttr, select } from 'query'
+const view = select('[view]')
+const modal = select('[modal]')
 toggleAttr(view,'hide')
 toggleAttr(modal,'hide')
 ```

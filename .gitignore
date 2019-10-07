@@ -3,3 +3,6 @@ coverage/
 docs/
 dist/
 .ignore/
+lib/
+lib-esm/
+_bundles/

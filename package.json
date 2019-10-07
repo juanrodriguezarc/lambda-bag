@@ -1,16 +1,16 @@
 {
   "name": "lambda-bag",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Functional utility toolbelt for vanillaJS",
   "main": "lamba-bag.js",
   "scripts": {
-    "build": "webpack",
+    "clean": "shx rm -rf _bundles lib lib-esm",
+    "build": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack",
     "check-types": "tsc",
     "docs": "./node_modules/.bin/esdoc",
     "lint": "eslint",
-    "start": "webpack-dev-server --inline",
-    "test:coverage": "jest --coverage",
-    "test": "jest",
+    "test:coverage": "npm run clean && jest --coverage",
+    "test": "npm run clean && jest",
     "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc"
   },
   "husky": {
@@ -38,13 +38,11 @@
   "homepage": "https://github.com/juanrodriguezarc/lamda-bag#readme",
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.6.0",
     "@babel/runtime": "^7.5.5",
+    "@babel/types": "^7.6.1",
     "@types/jest": "^24.0.18",
     "acorn": "^7.1.0",
     "babel-jest": "^24.9.0",
@@ -57,10 +55,11 @@
     "eslint": "^6.3.0",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
+    "shx": "^0.3.2",
     "ts-loader": "^6.1.0",
     "typescript": "^3.5.3",
-    "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.7.2"
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
   }
 }
