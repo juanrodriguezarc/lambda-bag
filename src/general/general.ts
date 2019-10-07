@@ -1,4 +1,4 @@
-import { fn } from '../types'
+import { fn, IBreakpoints } from '../types'
 /**
  * 
  * Returns the type of the given object
@@ -61,7 +61,7 @@ export const getQueryValue = (value: string) => (new URLSearchParams(window.loca
 /**
  * Returns if the current screen width size is valid for the device type given
  */
-export const isDevice = (deviceType: string) => window.innerWidth <= breakpoints[deviceType]
+export const isDevice = (deviceType: string) => window.innerWidth <= ({ sm_phone: 320, md_phone: 480, lg_phone: 600, tablet: 800, laptop: 1024, desktop: 1280 })[deviceType]
 
 /**
  * Screen width and height  
@@ -71,14 +71,14 @@ export const screen = () => ({ width: window.innerWidth, height: window.innerHei
 /**
  * Screen breakpoints commonly used
  */
-export const breakpoints: any = {
+export const breakpoints = () : IBreakpoints => ({
   sm_phone: 320,
   md_phone: 480,
   lg_phone: 600,
-  tablet: 801,
-  laptop: 1025,
-  desktop: 1281,
-}
+  tablet: 800,
+  laptop: 1024,
+  desktop: 1280,
+})
 
 /**
  * Convers a string object into a html document object

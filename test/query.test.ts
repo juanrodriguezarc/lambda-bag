@@ -48,7 +48,7 @@ import {
   value
 } from '../src/query'
 
-import { chromeless } from './index'
+import { qChrome as chromeless } from './index'
 
 describe('General DOM functions', () => {
 
@@ -78,8 +78,8 @@ describe('General DOM functions', () => {
     ))
   })
 
-  afterAll(async () => {
-    // await chromeless.end()
+  afterAll(async () => {    
+    await chromeless.end()
     return true
   })
 

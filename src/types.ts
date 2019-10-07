@@ -21,3 +21,13 @@ export interface ISubject {
   removeObserver:fnObserver,
   notify:fn
 }
+
+
+export interface IBreakpoints { 
+  sm_phone: number,
+  md_phone: number,
+  lg_phone: number,
+  tablet: number,
+  laptop: number,
+  desktop: number,
+}
