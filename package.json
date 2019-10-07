@@ -11,7 +11,7 @@
     "lint": "eslint",
     "test:coverage": "npm run clean && jest --coverage",
     "test": "npm run clean && jest",
-    "build:prod": "npm install && webpack -p --config ./webpack.config.prod.js && ./node_modules/.bin/esdoc"
+    "build:prod": "npm install && npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && ./node_modules/.bin/esdoc"
   },
   "husky": {
     "hooks": {
