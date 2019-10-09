@@ -1,6 +1,6 @@
 
 
-# Lambda Bag *·* [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+# Lambda Bag *·* [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
 
 Functional JavaScript utility library focused in performance, modularity, and functional pattern.
 
@@ -36,7 +36,7 @@ if (view.classList.contains("active")) {
 }
 
 // Do this
-import { toggleAttr, select } from 'query'
+import { toggleAttr, select } from 'lambda-bag/lib/query'
 const view = select('[view]')
 const modal = select('[modal]')
 toggleAttr(view,'hide')
@@ -48,7 +48,7 @@ toggleAttr(modal,'hide')
 ### Functional Operators
 
 ```js
-import { pipe, map, add } from 'operators'
+import { pipe, map, add } from 'lambda-bag/lib/operators'
 
 const double = (x) => x * 2
 // Compose multiplication and sum in the respective order
@@ -62,7 +62,7 @@ pipe(
 
 ### Observers API
 ```js
-import { Observer } from 'observers'
+import { Observer } from 'lambda-bag/lib/observers'
 const AppState = State; 
 
 // Initialize subject
@@ -100,7 +100,7 @@ AppState.removeObserver(secondSubject);
 ### Helpers
 
 ```js
-import { toggleElem, rmQueryParam, setQueryParam } from 'general'
+import { toggleElem, rmQueryParam, setQueryParam } from 'lambda-bag/lib/general'
 const key = 'option'
 const value = 'param1'
 const params  = 'param1 param2 param3'
