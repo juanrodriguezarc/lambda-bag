@@ -17,7 +17,7 @@ import {
   type
 } from "../src/general";
 
-import { chromeless, localhost } from "./chromeless";
+import puppeteer from 'puppeteer'
 
 declare global {
   interface Window {
@@ -25,32 +25,39 @@ declare global {
   }
 }
 
+let chromeless;
+let localhost;
+let browser;
+
 describe("General browser functions", () => {
 
   const mapToFn = (...args) => args.map(fn => ` ${fn}`);
 
   beforeAll(async () => {
-    await localhost.goto('https://127.0.0.1?foo=bar')
 
-    await chromeless.evaluate(args => {
+    const params = mapToFn(
+      addListener, breakpoints, cleanQueryParams, count, 
+      getQueryParams, getQueryValue, getSize, goTo, isDevice, 
+      isDocReady, now, removeListener, rmQueryParam, 
+      setQueryParam, toHTML, type
+    )
+
+    browser = await puppeteer.launch()
+    chromeless = await browser.newPage()
+    localhost = await browser.newPage()
+
+    await chromeless.evaluate((args) => {
       eval(`window.general = {}`)
-      
       for (var i = 0; i < args.length; i++) {
         const regex = /function\s(.*)\(/g;
         const match = regex.exec(args[i]);
         if(match)
           eval(`window.general['${match[1]}'] = ${args[i]}`)
       }
-
-      return true;
-    }, mapToFn(
-      addListener, breakpoints, cleanQueryParams, count, 
-      getQueryParams, getQueryValue, getSize, goTo, isDevice, 
-      isDocReady, now, removeListener, rmQueryParam, 
-      setQueryParam, toHTML, type
-    ));
+    }, params)
 
     // For location purposes
+    await localhost.goto('https://google.com?foo=bar')
     await localhost.evaluate(args => {
       eval(`window.general = {}`)
       
@@ -62,13 +69,13 @@ describe("General browser functions", () => {
       }
 
       return true;
-    }, mapToFn(
-      addListener, breakpoints, cleanQueryParams, count, 
-      getQueryParams, getQueryValue, getSize, goTo, isDevice, 
-      isDocReady, now, removeListener, rmQueryParam, 
-      setQueryParam, toHTML, type
-    ));
+    }, params);
+
   });
+
+  afterAll(async() => {
+    await browser.close()
+  })
     
   it("Should add the event listener", async () => {
     const result = await chromeless.evaluate(() => {

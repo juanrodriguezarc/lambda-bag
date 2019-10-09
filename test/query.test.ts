@@ -47,7 +47,7 @@ import {
   value
 } from '../src/query'
 
-import { chromeless } from './chromeless'
+import puppeteer from 'puppeteer'
 
 declare global {
   interface Window {
@@ -55,23 +55,19 @@ declare global {
   }
 }
 
+let chromeless
+let browser
+
 describe('General DOM functions', () => {
 
   const mapToFn = (...args) => args.map(fn => ` ${fn}`)
 
   beforeAll(async () => {
-    await chromeless.evaluate(args => {
-      eval(`window.query = {}`)
-      
-      for (var i = 0; i < args.length; i++) {
-        const regex = /function\s(.*)\(/g
-        const match = regex.exec(args[i])
-        if(match)
-          eval(`window.query['${match[1]}'] = ${args[i]}`)
-      }
 
-      return true
-    }, mapToFn(
+    browser = await puppeteer.launch()
+    chromeless = await browser.newPage()
+
+    const functions = mapToFn(
       addClass, after, animate, append, appendHtml, before, 
       clone, closest, contains, dataset, filterElements, empty, 
       getAttr, getHtml, getStyle, getText, getViewPort, 
@@ -80,9 +76,24 @@ describe('General DOM functions', () => {
       rmAttr, rmChild, rmClass, scrollToElem, select, selectAll, 
       setAttr, setHtml, setCssVar, setStyles, setText, show, siblings, submit, 
       toggleAttr, toggleClass, trigger, value
-    ))
+    )
+
+    await chromeless.evaluate(args => {
+      eval(`window.query = {}`)
+      for (var i = 0; i < args.length; i++) {
+        const regex = /function\s(.*)\(/g
+        const match = regex.exec(args[i])
+        if(match)
+          eval(`window.query['${match[1]}'] = ${args[i]}`)
+      }
+      return true
+    }, functions)
   })
 
+  afterAll(async() => {
+    await browser.close()
+  })
+  
   it('Should add a class to the body element', async () => {
     const result = await chromeless.evaluate(() => {
       const { addClass } = window.query
