@@ -1,102 +1,16 @@
-import {
-  addClass,
-  after,
-  animate,
-  append,
-  appendHtml,
-  before,
-  clone,
-  closest,
-  contains,
-  dataset,
-  filterElements,
-  empty,
-  getAttr,
-  getHtml,
-  getStyle,
-  getText,
-  getViewPort,
-  hasClass,
-  hide,
-  last,
-  match,
-  nextSibling,
-  opacity,
-  outerHtml,
-  prepend,
-  prevSibling,
-  remove,
-  replaceHtml,
-  rmAttr,
-  rmChild,
-  rmClass,
-  scrollToElem,
-  select,
-  selectAll,
-  setAttr,
-  setCssVar,
-  setHtml,
-  setStyles,
-  setText,
-  show,
-  siblings,
-  submit,
-  toggleAttr,
-  toggleClass,
-  trigger,
-  value
-} from '../src/query'
-
-import puppeteer from 'puppeteer'
+import { chromeless } from './jest.setup' 
 
 declare global {
   interface Window {
-    query: any;
+    lambda: any;
   }
 }
 
-let chromeless
-let browser
-
 describe('General DOM functions', () => {
 
-  const mapToFn = (...args) => args.map(fn => ` ${fn}`)
-
-  beforeAll(async () => {
-
-    browser = await puppeteer.launch()
-    chromeless = await browser.newPage()
-
-    const functions = mapToFn(
-      addClass, after, animate, append, appendHtml, before, 
-      clone, closest, contains, dataset, filterElements, empty, 
-      getAttr, getHtml, getStyle, getText, getViewPort, 
-      hasClass, hide, last, match, nextSibling, opacity, 
-      outerHtml, prepend, prevSibling, remove, replaceHtml, 
-      rmAttr, rmChild, rmClass, scrollToElem, select, selectAll, 
-      setAttr, setHtml, setCssVar, setStyles, setText, show, siblings, submit, 
-      toggleAttr, toggleClass, trigger, value
-    )
-
-    await chromeless.evaluate(args => {
-      eval(`window.query = {}`)
-      for (var i = 0; i < args.length; i++) {
-        const regex = /function\s(.*)\(/g
-        const match = regex.exec(args[i])
-        if(match)
-          eval(`window.query['${match[1]}'] = ${args[i]}`)
-      }
-      return true
-    }, functions)
-  })
-
-  afterAll(async() => {
-    await browser.close()
-  })
-  
   it('Should add a class to the body element', async () => {
     const result = await chromeless.evaluate(() => {
-      const { addClass } = window.query
+      const { addClass } = window.lambda
       const body = document.querySelector('body')
       addClass('newClass')(body)
       return body.classList.contains('newClass')
@@ -106,7 +20,7 @@ describe('General DOM functions', () => {
 
   it('Should convert a string and append the element to the body', async () => {
     const result = await chromeless.evaluate(() => {
-      const { appendHtml } = window.query
+      const { appendHtml } = window.lambda
       const body = document.querySelector('body')
       appendHtml('<appendHtml></appendHtml>')(body)
       return !!document.querySelector('body appendHtml')
@@ -116,7 +30,7 @@ describe('General DOM functions', () => {
 
   it('Should add element after the document selected', async () => {
     const result = await chromeless.evaluate(() => {
-      const { after, appendHtml } = window.query
+      const { after, appendHtml } = window.lambda
       const body = document.querySelector('body')
       appendHtml('<beforeElement></beforeElement>')(body)
       const element = document.querySelector('body beforeElement')
@@ -128,7 +42,7 @@ describe('General DOM functions', () => {
 
   it('Should toggle the selector class', async () => {
     const result = await chromeless.evaluate(() => {
-      const { toggleClass } = window.query
+      const { toggleClass } = window.lambda
       const body = document.querySelector('body')
       toggleClass('active')(body)
       return body.classList.contains('active')
@@ -138,7 +52,7 @@ describe('General DOM functions', () => {
 
   it('Should toggle attribute', async () => {
     const result = await chromeless.evaluate(() => {
-      const { toggleAttr } = window.query
+      const { toggleAttr } = window.lambda
       const body = document.querySelector('body')
       toggleAttr('attribute')(body)
       return body.hasAttribute('attribute')
@@ -148,7 +62,7 @@ describe('General DOM functions', () => {
 
   it('Should add element as child to the selected document', async () => {
     const result = await chromeless.evaluate(() => {
-      const { append } = window.query
+      const { append } = window.lambda
       const div = document.createElement('append') 
       const body = document.querySelector('body')
       append(div)(body) 
@@ -159,7 +73,7 @@ describe('General DOM functions', () => {
 
   it('Should clone the element', async () => {
     const result = await chromeless.evaluate(() => {
-      const { clone } = window.query
+      const { clone } = window.lambda
       const div = document.createElement('clone')
       const clonedElem = clone(div)
       return !!clonedElem
@@ -169,7 +83,7 @@ describe('General DOM functions', () => {
   
   it('Should add element before of the document selected', async () => {
     const result = await chromeless.evaluate(() => {
-      const { before, appendHtml } = window.query
+      const { before, appendHtml } = window.lambda
       const body = document.querySelector('body')
       appendHtml('<afterElement></afterElement>')(body)
 
@@ -183,7 +97,7 @@ describe('General DOM functions', () => {
 
   it('Should add an animation', async () => {
     const result = await chromeless.evaluate(() => {
-      const { animate } = window.query
+      const { animate } = window.lambda
       const div = document.createElement('animation')
 
       animate([
@@ -198,7 +112,7 @@ describe('General DOM functions', () => {
 
   it('Should get the closest element', async () => {
     const result = await chromeless.evaluate(() => {
-      const { closest, append } = window.query
+      const { closest, append } = window.lambda
 
       const div = document.createElement('closest') 
       const body = document.querySelector('body')
@@ -211,7 +125,7 @@ describe('General DOM functions', () => {
 
   it('Should add a class an verify it contains the selector', async () => {
     const result = await chromeless.evaluate(() => {
-      const { addClass } = window.query
+      const { addClass } = window.lambda
       const div = document.createElement('div')
       addClass('new-class')(div)
       return div.classList.contains('new-class')
@@ -221,7 +135,7 @@ describe('General DOM functions', () => {
 
   it('Should get the dataset value', async () => {
     const result = await chromeless.evaluate(() => {
-      const { dataset } = window.query
+      const { dataset } = window.lambda
       const div = document.createElement('div')
       div.setAttribute('data-id', 'Identity')
       return dataset('id')(div) === 'Identity'
@@ -231,7 +145,7 @@ describe('General DOM functions', () => {
 
   it('Should filter elements by the dataset value', async () => {
     const result = await chromeless.evaluate(() => {
-      const { dataset, append, filterElements } = window.query
+      const { dataset, append, filterElements } = window.lambda
 
       const elements = Array.from({ length: 10 }, (_, i) => i)
       const parent = document.querySelector('body')
@@ -256,7 +170,7 @@ describe('General DOM functions', () => {
 
   it("Should add the selector class", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { addClass } = window.query
+      const { addClass } = window.lambda
       const div = document.createElement('div')
       addClass('test')(div)
       return div.classList.contains('test')
@@ -266,7 +180,7 @@ describe('General DOM functions', () => {
 
   it("Should append an item to the parent container", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { append } = window.query
+      const { append } = window.lambda
       const container = document.createElement('container')
       const div = document.createElement('div')
       append(div)(container)
@@ -277,7 +191,7 @@ describe('General DOM functions', () => {
 
   it("Should return if the elements contains the child", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { contains } = window.query
+      const { contains } = window.lambda
       
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
@@ -290,7 +204,7 @@ describe('General DOM functions', () => {
 
   it("Should remove the inner html", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { empty } = window.query
+      const { empty } = window.lambda
       const item = document.createElement('container')
       empty(item)
       return item.innerHTML == ''
@@ -300,7 +214,7 @@ describe('General DOM functions', () => {
 
   it("Should return the attribute value", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { getAttr } = window.query
+      const { getAttr } = window.lambda
       const item = document.createElement('div')
       item.setAttribute("foo", "bar")
       return getAttr('foo')(item) == 'bar'
@@ -310,7 +224,7 @@ describe('General DOM functions', () => {
   
   it("Should get the element html string", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { getHtml, select } = window.query
+      const { getHtml, select } = window.lambda
       const item = select('body')()
       return item.innerHTML == getHtml(item)
     })
@@ -319,7 +233,7 @@ describe('General DOM functions', () => {
   
   it("Should returns the style value", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { getStyle } = window.query
+      const { getStyle } = window.lambda
       const body =  document.querySelector('body')
       return getStyle('display')(body) == 'block'
     })
@@ -328,7 +242,7 @@ describe('General DOM functions', () => {
   
   it("Should return the object text", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { getText } = window.query
+      const { getText } = window.lambda
       const item = document.createElement('div')
       return item.textContent == getText(item)
     })
@@ -337,7 +251,7 @@ describe('General DOM functions', () => {
   
   it("Should return the element viewPort", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { getViewPort } = window.query
+      const { getViewPort } = window.lambda
       const body =  document.querySelector('body')
       return !!getViewPort(body)
     })
@@ -346,7 +260,7 @@ describe('General DOM functions', () => {
 
   it("Should return if the element has the class", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { hasClass, addClass } = window.query
+      const { hasClass, addClass } = window.lambda
       const item = document.createElement('div')
       addClass('test')(item)
       return hasClass('test')(item)
@@ -356,7 +270,7 @@ describe('General DOM functions', () => {
 
   it("Should change the display status", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { hide } = window.query
+      const { hide } = window.lambda
       const div = document.createElement('div')
       hide(div)
       return div.style.display == 'none'
@@ -366,7 +280,7 @@ describe('General DOM functions', () => {
   
   it("Should return the last element", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { last } = window.query
+      const { last } = window.lambda
       const container = document.createElement('container')
       const div1 = document.createElement('div')
       const div2 = document.createElement('div')
@@ -384,7 +298,7 @@ describe('General DOM functions', () => {
 
   it("Should return if the elements match", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { match } = window.query
+      const { match } = window.lambda
       const body1 =  document.querySelector('body')
       const body2 =  document.querySelector('body')
       return match(body1)(body2)
@@ -394,7 +308,7 @@ describe('General DOM functions', () => {
   
   it("Should return next sibling", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { nextSibling } = window.query
+      const { nextSibling } = window.lambda
 
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
@@ -415,7 +329,7 @@ describe('General DOM functions', () => {
 
   it("Should change the element pacity", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { opacity } = window.query
+      const { opacity } = window.lambda
       const div = document.createElement('div')
       opacity(0.4)(div)
       return div.style.opacity == '0.4'
@@ -425,7 +339,7 @@ describe('General DOM functions', () => {
   
   it("Should return the outer html", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { outerHtml } = window.query
+      const { outerHtml } = window.lambda
 
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
@@ -446,7 +360,7 @@ describe('General DOM functions', () => {
   
   it("Should insert the element at the first postion", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { prepend } = window.query
+      const { prepend } = window.lambda
 
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
@@ -472,7 +386,7 @@ describe('General DOM functions', () => {
   
   it("Should return the previous sibling", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { prevSibling } = window.query
+      const { prevSibling } = window.lambda
 
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
@@ -492,7 +406,7 @@ describe('General DOM functions', () => {
   
   it("Should remove the inner element", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { remove } = window.query
+      const { remove } = window.lambda
       const container = document.createElement('container')
       const div = document.createElement('div')
       container.appendChild(div)
@@ -504,7 +418,7 @@ describe('General DOM functions', () => {
 
   it("Should replace outer html", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { replaceHtml } = window.query
+      const { replaceHtml } = window.lambda
       const container = document.createElement('container')
       const div = document.createElement('div')
       container.appendChild(div)
@@ -517,7 +431,7 @@ describe('General DOM functions', () => {
 
   it("Should remove the element attribute", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { rmAttr } = window.query
+      const { rmAttr } = window.lambda
       const div = document.createElement('div')
       div.setAttribute('foo', 'bar')
       rmAttr('foo')(div)
@@ -528,7 +442,7 @@ describe('General DOM functions', () => {
   
   it("Should remove the child element", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { rmChild } = window.query
+      const { rmChild } = window.lambda
 
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
@@ -551,7 +465,7 @@ describe('General DOM functions', () => {
 
   it("Should remove the class selector", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { rmClass } = window.query
+      const { rmClass } = window.lambda
       const div = document.createElement('div')
       div.classList.add('foo')
       rmClass('foo')(div)
@@ -562,7 +476,7 @@ describe('General DOM functions', () => {
 
   it("Should scrollToElem", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { scrollToElem } = window.query
+      const { scrollToElem } = window.lambda
       const div = document.querySelector('div')
       scrollToElem(div)
       return true
@@ -572,7 +486,7 @@ describe('General DOM functions', () => {
   
   it("Should return the selected element", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { select } = window.query
+      const { select } = window.lambda
       return !!select('body')()
     })
     expect(result).toEqual(true)
@@ -580,7 +494,7 @@ describe('General DOM functions', () => {
 
   it("Should select all elements that match with the given query", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { selectAll } = window.query
+      const { selectAll } = window.lambda
       return selectAll('div')().length > 0
     })
     expect(result).toEqual(true)
@@ -588,7 +502,7 @@ describe('General DOM functions', () => {
   
   it("Should set the element attribute", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { setAttr } = window.query
+      const { setAttr } = window.lambda
       const div = document.createElement('div')
       setAttr('foo', 'bar')(div)
       return div.getAttribute('foo') == 'bar'
@@ -598,7 +512,7 @@ describe('General DOM functions', () => {
   
   it("Should set the html content", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { setHtml } = window.query
+      const { setHtml } = window.lambda
       const item = document.createElement('div')
       const html = `<div>TEST</div>`
       setHtml(html)(item)
@@ -610,7 +524,7 @@ describe('General DOM functions', () => {
   
   it("Should set styles element", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { setStyles } = window.query
+      const { setStyles } = window.lambda
       const div = document.createElement('div')
       setStyles({ display: 'none' })(div)
       return div.style.display == 'none'
@@ -620,7 +534,7 @@ describe('General DOM functions', () => {
   
   it("Should set text element", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { setText } = window.query
+      const { setText } = window.lambda
       const div = document.createElement('div')
       setText('test')(div)
       return div.innerText == 'test'
@@ -630,7 +544,7 @@ describe('General DOM functions', () => {
 
   it("Should change the state to show", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { show } = window.query
+      const { show } = window.lambda
       const div = document.createElement('div')
       show(div)
       return div.style.display == ''
@@ -640,7 +554,7 @@ describe('General DOM functions', () => {
   
   it("Should return the siblings", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { siblings } = window.query
+      const { siblings } = window.lambda
       const container = document.createElement('container')
       const div1 = document.createElement('div1')
       const div2 = document.createElement('div2')
@@ -661,7 +575,7 @@ describe('General DOM functions', () => {
 
   it("Should dispatch the submit event", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { submit } = window.query
+      const { submit } = window.lambda
       const form = document.createElement('form')
       submit(form)
       return true
@@ -671,7 +585,7 @@ describe('General DOM functions', () => {
 
   it("Should toggle the attribute", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { toggleAttr } = window.query
+      const { toggleAttr } = window.lambda
       const div = document.createElement('div')
       toggleAttr('test')(div)
       const withAtrr = div.hasAttribute('test')
@@ -684,7 +598,7 @@ describe('General DOM functions', () => {
 
   it("Should toggle the class selector", async () => { 
     const result = await chromeless.evaluate(() => { 
-      const { toggleClass } = window.query
+      const { toggleClass } = window.lambda
       const div = document.createElement('div')
       toggleClass('test')(div)
       const withClass = div.classList.contains('test')
@@ -698,7 +612,7 @@ describe('General DOM functions', () => {
   
   it("Should add/dispatch the event trigger", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { trigger  } = window.query
+      const { trigger  } = window.lambda
       const div = document.createElement('div')      
       return trigger('click')(div)
     })
@@ -707,7 +621,7 @@ describe('General DOM functions', () => {
   
   it("Should get the input value", async () => {
     const result = await chromeless.evaluate(() => { 
-      const { value, setAttr } = window.query
+      const { value, setAttr } = window.lambda
       const input = document.createElement('input')
       setAttr('value','5')(input)
       return value()(input) == '5'

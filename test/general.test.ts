@@ -1,85 +1,17 @@
-import {
-  addListener,
-  breakpoints,
-  cleanQueryParams,
-  count,
-  getQueryParams,
-  getQueryValue,
-  getSize,
-  goTo,
-  isDevice,
-  isDocReady,
-  now,
-  removeListener,
-  rmQueryParam,
-  setQueryParam,
-  toHTML,
-  type
-} from "../src/general";
-
-import puppeteer from 'puppeteer'
+import { localhost, chromeless } from './jest.setup'
 
 declare global {
   interface Window {
-    general: any;
+    lambda: any;
   }
 }
 
-let chromeless;
-let localhost;
-let browser;
 
 describe("General browser functions", () => {
 
-  const mapToFn = (...args) => args.map(fn => ` ${fn}`);
-
-  beforeAll(async () => {
-
-    const params = mapToFn(
-      addListener, breakpoints, cleanQueryParams, count, 
-      getQueryParams, getQueryValue, getSize, goTo, isDevice, 
-      isDocReady, now, removeListener, rmQueryParam, 
-      setQueryParam, toHTML, type
-    )
-
-    browser = await puppeteer.launch()
-    chromeless = await browser.newPage()
-    localhost = await browser.newPage()
-
-    await chromeless.evaluate((args) => {
-      eval(`window.general = {}`)
-      for (var i = 0; i < args.length; i++) {
-        const regex = /function\s(.*)\(/g;
-        const match = regex.exec(args[i]);
-        if(match)
-          eval(`window.general['${match[1]}'] = ${args[i]}`)
-      }
-    }, params)
-
-    // For location purposes
-    await localhost.goto('https://google.com?foo=bar')
-    await localhost.evaluate(args => {
-      eval(`window.general = {}`)
-      
-      for (var i = 0; i < args.length; i++) {
-        const regex = /function\s(.*)\(/g;
-        const match = regex.exec(args[i]);
-        if(match)
-          eval(`window.general['${match[1]}'] = ${args[i]}`)
-      }
-
-      return true;
-    }, params);
-
-  });
-
-  afterAll(async() => {
-    await browser.close()
-  })
-    
   it("Should add the event listener", async () => {
     const result = await chromeless.evaluate(() => {
-      const { addListener } = window.general
+      const { addListener } = window.lambda
       const div = document.createElement('div')
       addListener(()=>{},'click')(div)
       return true
@@ -89,7 +21,7 @@ describe("General browser functions", () => {
 
   it("Should return the size breakpoints", async () => {
     const result = await chromeless.evaluate(() => {
-      const { breakpoints } = window.general
+      const { breakpoints } = window.lambda
       return breakpoints()
     })
 
@@ -107,7 +39,7 @@ describe("General browser functions", () => {
 
   it("Should clean the query params", async () => {
     const result = await localhost.evaluate(() => {
-      const { cleanQueryParams } = window.general
+      const { cleanQueryParams } = window.lambda
       cleanQueryParams()
       return window.location.search == ''
     })
@@ -116,7 +48,7 @@ describe("General browser functions", () => {
 
   it("Should count the string length", async () => {
     const result = await chromeless.evaluate(() => {
-      const { count } = window.general
+      const { count } = window.lambda
       return 'foo'.length == count('foo')
     })
     expect(result).toEqual(true)
@@ -124,7 +56,7 @@ describe("General browser functions", () => {
 
   it("Should get all query params", async () => {
     const result = await localhost.evaluate(() => {
-      const { getQueryParams, setQueryParam } = window.general
+      const { getQueryParams, setQueryParam } = window.lambda
       setQueryParam('foo', 'bar')
       setQueryParam('foo2', 'bar2')      
       return getQueryParams()
@@ -144,7 +76,7 @@ describe("General browser functions", () => {
 
   it("Should get query parameter value", async () => {
     const result = await localhost.evaluate(() => {
-      const {  setQueryParam, getQueryValue } = window.general
+      const {  setQueryParam, getQueryValue } = window.lambda
       setQueryParam('foo4', 'bar4')      
       return getQueryValue('foo4')
     })
@@ -153,7 +85,7 @@ describe("General browser functions", () => {
 
   it("Should get element size", async () => {
     const result = await chromeless.evaluate(() => {
-      const { getSize } = window.general
+      const { getSize } = window.lambda
       const body = document.querySelector('body')
       body.style.maxHeight = '50px'
       body.style.maxWidth = '50px'
@@ -165,7 +97,7 @@ describe("General browser functions", () => {
 
   it("Should return if the the screen size fits with the device", async () => {
     const result = await chromeless.evaluate(() => {
-      const { isDevice, breakpoints } = window.general
+      const { isDevice, breakpoints } = window.lambda
 
       breakpoints()
       const sm_phone = isDevice('sm_phone')
@@ -184,7 +116,7 @@ describe("General browser functions", () => {
 
   it("Should call the function when the doc is ready", async () => {
     const result = await chromeless.evaluate(() => {
-      const {  isDocReady } = window.general
+      const {  isDocReady } = window.lambda
       isDocReady(()=>{ })()
       return true
     })
@@ -193,7 +125,7 @@ describe("General browser functions", () => {
 
   it("Should return the current time", async () => {
     const result = await chromeless.evaluate(() => {
-      const { now } = window.general
+      const { now } = window.lambda
       return !!(new Date(now()))
     })
     expect(result).toEqual(true)
@@ -201,7 +133,7 @@ describe("General browser functions", () => {
 
   it("Should remove event listener", async () => {
     const result = await chromeless.evaluate(() => {
-      const { addListener, removeListener } = window.general
+      const { addListener, removeListener } = window.lambda
       const div = document.createElement('div')
       const handler =  ()=> ({})
       addListener(handler,'click')(div)
@@ -213,7 +145,7 @@ describe("General browser functions", () => {
 
   it("Should remove the query param", async () => {
     const result = await localhost.evaluate(() => {
-      const {  setQueryParam, rmQueryParam, getQueryValue } = window.general
+      const {  setQueryParam, rmQueryParam, getQueryValue } = window.lambda
       setQueryParam('foo6', 'bar6')    
       rmQueryParam('foo6', 'bar6')    
       return getQueryValue('foo6')
@@ -223,7 +155,7 @@ describe("General browser functions", () => {
 
   it("Should set the query param", async () => {
     const result = await localhost.evaluate(() => {
-      const {  setQueryParam, getQueryValue } = window.general
+      const {  setQueryParam, getQueryValue } = window.lambda
       setQueryParam('foo3', 'bar3')      
       return getQueryValue('foo3')
     })
@@ -232,7 +164,7 @@ describe("General browser functions", () => {
 
   it("Should conver a string into a node (HTMLCollection)", async () => {
     const result = await chromeless.evaluate(() => {
-      const { toHTML } = window.general
+      const { toHTML } = window.lambda
       return !!toHTML(`<div foo>bar</div>`)[0]
     })
     expect(result).toEqual(true)
@@ -240,7 +172,7 @@ describe("General browser functions", () => {
 
   it("Should return the object type", async () => {
     const result = await chromeless.evaluate(() => {
-      const { type } = window.general
+      const { type } = window.lambda
      const _null = type(null)
      const _undefined = type(undefined)
      const _number = type(1)
@@ -263,7 +195,7 @@ describe("General browser functions", () => {
 
   it("Should change page location", async () => {
     const result = await localhost.evaluate(() => {
-      const { goTo } = window.general
+      const { goTo } = window.lambda
       goTo('https://127.0.0.1')
       return !!window.location
     })
