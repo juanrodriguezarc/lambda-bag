@@ -1,13 +1,7 @@
 
+# Lambda Bag [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![npm version](https://badge.fury.io/js/lambda-bag.svg)](https://badge.fury.io/js/lambda-bag) [![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
 
-# Lambda Bag
-
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
-[![npm version](https://badge.fury.io/js/lambda-bag.svg)](https://badge.fury.io/js/lambda-bag) 
-[![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
-
-![LambdaBag](https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/lb-logo-lg.png)
+<img src="https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/lb-logo-lg.png#bordered" alt="Kitten" title="A cute kitten" style="max-width: 600px;margin-top: 20px;" />
 
 ## Introduction
 
