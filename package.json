@@ -1,6 +1,6 @@
 {
   "name": "lambda-bag",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Functional utility toolbelt for vanillaJS",
   "main": "lamba-bag.js",
   "scripts": {
