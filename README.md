@@ -1,8 +1,15 @@
 
 
-# Lambda Bag *·* [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
+# Lambda Bag
 
-![Drag Racing](./assets/logo-lg.png)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+[![npm version](https://badge.fury.io/js/lambda-bag.svg)](https://badge.fury.io/js/lambda-bag) 
+[![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
+
+![LambdaBag](https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/logo-lg.png)
+
+## Introduction
 
 Functional JavaScript utility library focused in performance, modularity, and functional pattern.
 
@@ -45,7 +52,7 @@ toggleAttr(view,'hide')
 toggleAttr(modal,'hide')
 ```
 
-[View all](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/identifiers.html#query)
+[View all](https://www.lambdabag.com/identifiers.html#query)
 
 ### Functional Operators
 
@@ -60,7 +67,7 @@ pipe(
 )([1,2,3,4,-1,0]) 
 ```
 
-[View all operators](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/identifiers.html#operators)
+[View all operators](https://www.lambdabag.com/identifiers.html#operators)
 
 ### Observers API
 ```js
@@ -95,7 +102,7 @@ AppState.get()
 AppState.update({ x: 'New Value' })
 AppState.removeObserver(secondSubject);
 ```
-[View documentation](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/identifiers.html#observers)
+[View documentation](https://www.lambdabag.com/identifiers.html#observers)
 
 
 
@@ -112,7 +119,7 @@ switchAttrs.length <= 0 ?
   setQueryParam(key, switchAttrs.join(','))
 ```
 
-[View all helpers](https://5d8be4ea8e992f00086c7407--hopeful-perlman-bfbed6.netlify.com/identifiers.html#general)
+[View all helpers](https://www.lambdabag.com/identifiers.html#general)
 
 ## Contributing
 

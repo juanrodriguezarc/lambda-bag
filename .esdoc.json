@@ -31,7 +31,10 @@
                 "logo": "./assets/logo-lg.png",
                 "title": "Lambda Bag",
                 "description": "Functional helper",
-                "author": "Brenda Perez Espinoza"
+                "author": "Juan Rodriguez Arce",
+                "repository": "https://github.com/juanrodriguezarc/lambda-bag",
+                "site": "http://lambdabag.com",
+                "image": "https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/logo-lg.png"
               }
           }
       },
