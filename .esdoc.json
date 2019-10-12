@@ -28,13 +28,13 @@
                 "excludes": ["\\.config\\.js$"]
               },
               "brand": {
-                "logo": "./assets/logo-lg.png",
+                "logo": "https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/lb-logo-lg.png",
                 "title": "Lambda Bag",
                 "description": "Functional helper",
                 "author": "Juan Rodriguez Arce",
                 "repository": "https://github.com/juanrodriguezarc/lambda-bag",
                 "site": "http://lambdabag.com",
-                "image": "https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/logo-lg.png"
+                "image": "https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/lb-logo-lg.png"
               }
           }
       },

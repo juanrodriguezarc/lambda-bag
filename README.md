@@ -7,7 +7,7 @@
 [![npm version](https://badge.fury.io/js/lambda-bag.svg)](https://badge.fury.io/js/lambda-bag) 
 [![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
 
-![LambdaBag](https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/logo-lg.png)
+![LambdaBag](https://raw.githubusercontent.com/juanrodriguezarc/lambda-bag/master/assets/lb-logo-lg.png)
 
 ## Introduction
 
