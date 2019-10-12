@@ -5,7 +5,8 @@
       "\\.ts$"
   ],
   "excludes": [
-      "\\.config\\.ts$"
+      "\\.config\\.ts$",
+      "index.ts"
   ],
   "plugins": [
       {
@@ -19,7 +20,19 @@
               "asyncGenerators": true,
               "decorators": true,
               "exportExtensions": true,
-              "dynamicImport": true
+              "dynamicImport": true,
+              "test": {
+                "source": "./test/",
+                "interfaces": ["describe", "it", "context", "suite", "test"],
+                "includes": ["(spec|Spec|test|Test)\\.js$"],
+                "excludes": ["\\.config\\.js$"]
+              },
+              "brand": {
+                "logo": "./assets/logo-lg.png",
+                "title": "Lambda Bag",
+                "description": "Functional helper",
+                "author": "Brenda Perez Espinoza"
+              }
           }
       },
       {

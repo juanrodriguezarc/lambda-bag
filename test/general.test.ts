@@ -1,4 +1,4 @@
-import { localhost, chromeless } from './jest.setup'
+import { chromeless } from './jest.setup'
 
 declare global {
   interface Window {
@@ -38,7 +38,7 @@ describe("General browser functions", () => {
   })
 
   it("Should clean the query params", async () => {
-    const result = await localhost.evaluate(() => {
+    const result = await chromeless.evaluate(() => {
       const { cleanQueryParams } = window.lambda
       cleanQueryParams()
       return window.location.search == ''
@@ -55,7 +55,7 @@ describe("General browser functions", () => {
   })
 
   it("Should get all query params", async () => {
-    const result = await localhost.evaluate(() => {
+    const result = await chromeless.evaluate(() => {
       const { getQueryParams, setQueryParam } = window.lambda
       setQueryParam('foo', 'bar')
       setQueryParam('foo2', 'bar2')      
@@ -75,7 +75,7 @@ describe("General browser functions", () => {
   })
 
   it("Should get query parameter value", async () => {
-    const result = await localhost.evaluate(() => {
+    const result = await chromeless.evaluate(() => {
       const {  setQueryParam, getQueryValue } = window.lambda
       setQueryParam('foo4', 'bar4')      
       return getQueryValue('foo4')
@@ -144,7 +144,7 @@ describe("General browser functions", () => {
   })
 
   it("Should remove the query param", async () => {
-    const result = await localhost.evaluate(() => {
+    const result = await chromeless.evaluate(() => {
       const {  setQueryParam, rmQueryParam, getQueryValue } = window.lambda
       setQueryParam('foo6', 'bar6')    
       rmQueryParam('foo6', 'bar6')    
@@ -154,7 +154,7 @@ describe("General browser functions", () => {
   })
 
   it("Should set the query param", async () => {
-    const result = await localhost.evaluate(() => {
+    const result = await chromeless.evaluate(() => {
       const {  setQueryParam, getQueryValue } = window.lambda
       setQueryParam('foo3', 'bar3')      
       return getQueryValue('foo3')
@@ -194,9 +194,9 @@ describe("General browser functions", () => {
   })
 
   it("Should change page location", async () => {
-    const result = await localhost.evaluate(() => {
+    const result = await chromeless.evaluate(() => {
       const { goTo } = window.lambda
-      goTo('https://127.0.0.1')
+      goTo('http://blank.org/')
       return !!window.location
     })
     expect(result).toEqual(true)

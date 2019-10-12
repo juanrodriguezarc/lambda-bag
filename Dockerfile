@@ -20,3 +20,25 @@ COPY entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/tini", "--", "./entrypoint.sh"]
+
+# Application stage - In progress
+# FROM node:8 as builder
+
+# COPY config /lambda-bag/config
+# COPY src /lambda-bag/src
+# COPY test /lambda-bag/test
+# COPY .babelrc /lambda-bag/
+# COPY tsconfig.json /lambda-bag/
+# COPY package.json /lambda-bag/
+# COPY webpack.config.js /lambda-bag/
+# COPY jest.config.js /lambda-bag/
+
+# WORKDIR /lambda-bag
+
+# RUN ls
+# RUN pwd
+
+# RUN npm install
+# RUN npm run build
+
+# RUN npm run test

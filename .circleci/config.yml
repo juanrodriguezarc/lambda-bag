@@ -1,8 +1,19 @@
- version: 2
- jobs:
-   build:
-     docker:
-       - image: circleci/ruby:2.4.1
-     steps:
-       - checkout
-       - run: echo "A first hello"
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/lambda-bag
+    docker:
+      - image: circleci/node:10.16.3 # Primary container; `steps` will run here
+    steps:
+      - checkout #check out source code to working directory
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache: # special step to restore the dependency cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm
+          command: npm install
+      - run:
+          name: install-build
+          command: npm build

@@ -2,6 +2,8 @@
 
 # Lambda Bag *·* [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php) [![CircleCI](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master.svg?style=svg)](https://circleci.com/gh/juanrodriguezarc/lambda-bag/tree/master)
 
+![Drag Racing](./assets/logo-lg.png)
+
 Functional JavaScript utility library focused in performance, modularity, and functional pattern.
 
 The idea of this project is a lightweight set of functions the will reduce the amount of code in your vanilla JS project

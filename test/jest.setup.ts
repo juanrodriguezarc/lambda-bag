@@ -71,22 +71,25 @@ export let localhost
 let browser
 
 import puppeteer from 'puppeteer'
-import { ENV } from '../config'
+
+import fetch from 'node-fetch';
 
 // Load all lambda-bag functions to browser
 beforeAll(async() => {
 
   const mapToFn = (...args) => args.map(fn => ` ${fn}`)
 
-  const { browserWSEndpoint } = ENV
-  if(!browserWSEndpoint){
+  try {
+    const result = await fetch('http://0.0.0.0:9222/json/version')
+    const res = await result.json()
+    const { webSocketDebuggerUrl } = res
+    browser = await puppeteer.connect({ browserWSEndpoint: webSocketDebuggerUrl })
+    console.log('Running remote', webSocketDebuggerUrl)
+  }catch(e) {
     browser = await puppeteer.launch()
-  }else{
-    browser = await puppeteer.connect({ browserWSEndpoint })
   }
 
   chromeless = await browser.newPage()
-  localhost = await browser.newPage()
 
   const general = [
     addClass, after, animate, append, appendHtml, before, 
@@ -108,6 +111,7 @@ beforeAll(async() => {
 
   const functions = mapToFn(...general,...query )
 
+  await chromeless.goto('http://blank.org/')
   await chromeless.evaluate(args => {
     eval(`window.lambda = {}`)
     for (var i = 0; i < args.length; i++) {
@@ -119,21 +123,10 @@ beforeAll(async() => {
     return true
   }, functions)
 
-  await localhost.goto('http://blank.org?foo=bar')
-  await localhost.evaluate(args => {
-    eval(`window.lambda = {}`)
-    for (var i = 0; i < args.length; i++) {
-      const regex = /function\s(.*)\(/g;
-      const match = regex.exec(args[i]);
-      if(match)
-        eval(`window.lambda['${match[1]}'] = ${args[i]}`)
-    }
-    return true;
-  }, functions);
 
 })
 
 // Close the browser activiy
 afterAll(async() => {
-  await browser.close()
+    await browser.close()
 })

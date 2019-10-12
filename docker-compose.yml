@@ -1,9 +1,14 @@
 version: '3'
 services:
-  chrome:
-    build: ./chrome
+  site:
+    restart: always
+    build: ./
     shm_size: '1gb'
     cap_add:
       - SYS_ADMIN
     ports:
       - '9222:9222'
+  mock: 
+    build: ./mock/
+    ports:
+      - '8080:80'
